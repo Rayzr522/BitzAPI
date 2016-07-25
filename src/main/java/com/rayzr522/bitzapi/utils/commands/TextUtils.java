@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.bukkit.ChatColor;
 
 public class TextUtils {
-	
+
 	public static final char COLOR_CHAR = '&';
 
 	public static String listToString(Collection<? extends Object> list) {
@@ -27,7 +27,7 @@ public class TextUtils {
 
 		if (input.equals(null) || input.equals("")) {
 
-			return "";
+		return "";
 
 		}
 
@@ -39,7 +39,7 @@ public class TextUtils {
 
 		if (words.length <= 1) {
 
-			return lowerInput;
+		return lowerInput;
 
 		}
 
@@ -59,13 +59,13 @@ public class TextUtils {
 
 		if (input.equals(null) || input.equals("")) {
 
-			return "";
+		return "";
 
 		}
 
 		if (input.length() == 1) {
 
-			return input.toLowerCase();
+		return input.toLowerCase();
 
 		}
 
@@ -91,13 +91,13 @@ public class TextUtils {
 
 		if (input.equals(null) || input.equals("")) {
 
-			return "";
+		return "";
 
 		}
 
 		if (input.length() == 1) {
 
-			return input.toUpperCase();
+		return input.toUpperCase();
 
 		}
 
@@ -129,6 +129,10 @@ public class TextUtils {
 
 		return input == null ? null : input.replace(ChatColor.COLOR_CHAR, TextUtils.COLOR_CHAR);
 
+	}
+
+	public static boolean equalsLowerCase(String string, String string2) {
+		return ((string == null || string2 == null) ? false : string.toLowerCase().equals(string2.toLowerCase()));
 	}
 
 }

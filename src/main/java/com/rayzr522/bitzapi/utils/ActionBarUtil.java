@@ -28,17 +28,20 @@ public class ActionBarUtil {
 
 	static {
 		try {
+			
 			chatSer = ReflectionUtils.getConstructor(Class.forName("net.minecraft.server." + BV + ".ChatComponentText"), String.class);
-
 			packetChat = Class.forName("net.minecraft.server." + BV + ".PacketPlayOutChat").getConstructor(Class.forName("net.minecraft.server." + BV + ".IChatBaseComponent"), byte.class);
 			getPlayerHandle = Class.forName("org.bukkit.craftbukkit." + BV + ".entity.CraftPlayer").getDeclaredMethod("getHandle");
 			playerConnection = Class.forName("net.minecraft.server." + BV + ".EntityPlayer").getDeclaredField("playerConnection");
 			sendPacket = Class.forName("net.minecraft.server." + BV + ".PlayerConnection").getDeclaredMethod("sendPacket", Class.forName("net.minecraft.server." + BV + ".Packet"));
 			initialised = true;
+			
 		} catch (ReflectiveOperationException e) {
+			
 			e.printStackTrace();
 			Bukkit.getServer().getLogger().warning("Cannot initialise Action Bar Utils (Blame fillpant)");
 			initialised = false;
+			
 		}
 	}
 

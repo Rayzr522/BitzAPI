@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.utils.world;
 
 import java.util.ArrayList;
@@ -15,14 +16,13 @@ import com.rayzr522.bitzapi.BitzPlugin;
 
 public class BlockUtils {
 
-	public static void showGhostBlocks(final List<Block> blocks, final Player player, final Material ghostMat,
-			final Byte metadata, int duration, final BitzPlugin plugin) {
+	public static void showGhostBlocks(final List<Block> blocks, final Player player, final Material ghostMat, final Byte metadata, int duration, final BitzPlugin plugin) {
 
 		final HashMap<Location, BlockState> oldStates = new HashMap<Location, BlockState>();
 
 		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
 			@SuppressWarnings("deprecation")
-			@Override
 			public void run() {
 
 				for (Block b : blocks) {
@@ -37,8 +37,8 @@ public class BlockUtils {
 		}, 0L);
 
 		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
 			@SuppressWarnings("deprecation")
-			@Override
 			public void run() {
 
 				for (Entry<Location, BlockState> entry : oldStates.entrySet()) {
@@ -53,8 +53,7 @@ public class BlockUtils {
 
 	}
 
-	public static void showGhostBlock(Block block, Player player, Material ghostMat, Byte metadata, int duration,
-			BitzPlugin plugin) {
+	public static void showGhostBlock(Block block, Player player, Material ghostMat, Byte metadata, int duration, BitzPlugin plugin) {
 
 		List<Block> blocks = new ArrayList<Block>();
 

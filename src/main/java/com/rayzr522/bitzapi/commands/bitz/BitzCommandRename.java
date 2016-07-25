@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.commands.bitz;
 
 import org.bukkit.command.CommandSender;
@@ -14,12 +15,11 @@ import com.rayzr522.bitzapi.utils.world.ItemUtils;
 @CommandInfo(name = "rename", usage = "/bitz rename <text>", desc = "Rename your current item", pattern = "rename", perm = "bitzapi.item.rename")
 public class BitzCommandRename implements BitzCommand {
 
-	@Override
 	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
 		if (!CommandUtils.isPlayer(sender)) {
 
-			return true;
+		return true;
 
 		}
 
@@ -39,7 +39,7 @@ public class BitzCommandRename implements BitzCommand {
 
 		}
 
-		ItemUtils.setName(player.getItemInHand(), ArrayUtils.concatArray(args, ' '));
+		ItemUtils.setName(player.getItemInHand(), ArrayUtils.concatArray(args, " "));
 
 		return true;
 	}

@@ -32,4 +32,10 @@ public class NumberUtils {
 
 	}
 
+	public static boolean isNegative(int i) {
+
+		return i != Math.abs(i);
+
+	}
+
 }

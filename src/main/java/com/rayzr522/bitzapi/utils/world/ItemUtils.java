@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.utils.world;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class ItemUtils {
 
 		if (type == null) {
 
-			return null;
+		return null;
 
 		}
 
@@ -85,13 +86,77 @@ public class ItemUtils {
 		return out;
 
 	}
-	
-	public static void setName(ItemStack item, String name){
-		
+
+	public static void setName(ItemStack item, String name) {
+
+		if (isEmpty(item)) { return; }
+
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(TextUtils.color(name));
 		item.setItemMeta(meta);
-		
+
+	}
+
+	public static void setLore(ItemStack item, List<String> lore) {
+
+		if (isEmpty(item)) { return; }
+
+		ItemMeta meta = item.getItemMeta();
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+
+	}
+
+	public static List<String> getLore(ItemStack item) {
+
+		if (isEmpty(item)) { return null; }
+
+		ItemMeta meta = item.getItemMeta();
+		if (!meta.hasLore()) { return null; }
+
+		return meta.getLore();
+
+	}
+
+	public static List<String> addLore(ItemStack item, List<String> lore) {
+
+		if (isEmpty(item)) { return null; }
+		if (ListUtils.isEmpty(lore)) { return null; }
+
+		List<String> currentLore = getLore(item);
+		if (currentLore == null) { return null; }
+		currentLore.addAll(lore);
+
+		ItemMeta meta = item.getItemMeta();
+		meta.setLore(currentLore);
+		item.setItemMeta(meta);
+
+		return currentLore;
+
+	}
+
+	public static void clearLore(ItemStack item) {
+
+		if (isEmpty(item)) { return; }
+
+		ItemMeta meta = item.getItemMeta();
+		meta.setLore(null);
+		item.setItemMeta(meta);
+
+	}
+
+	public static Material getType(String material) {
+
+		try {
+
+			return Material.valueOf(material.replace(" ", "_").toUpperCase());
+
+		} catch (Exception e) {
+
+			return null;
+
+		}
+
 	}
 
 }

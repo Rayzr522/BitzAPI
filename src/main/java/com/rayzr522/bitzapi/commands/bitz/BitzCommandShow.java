@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.commands.bitz;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import com.rayzr522.bitzapi.utils.world.RegionUtils;
 import com.rayzr522.bitzapi.world.PartialRegion;
 import com.rayzr522.bitzapi.world.Region;
 
-@CommandInfo(name = "show", usage = "/bitz show [reg:loc:locs]", desc = "Show the selections of one or all of the Bitz Tools", pattern = "sh(ow)?", perm = "bitzapi.tools")
+@CommandInfo(name = "show", usage = "/{command} show [reg:loc:locs]", desc = "Show the selections of one or all of the Bitz Tools", pattern = "sh(ow)?", perm = "{base}.tools")
 public class BitzCommandShow implements BitzCommand {
 
 	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
@@ -79,7 +80,7 @@ public class BitzCommandShow implements BitzCommand {
 		PartialRegion partial = BitzData.getRegionSelection(player);
 		if (!partial.isComplete()) {
 
-			return;
+		return;
 
 		}
 		Region region = partial.toRegion();
@@ -93,7 +94,7 @@ public class BitzCommandShow implements BitzCommand {
 		Location loc = BitzData.getLocationSelection(player);
 		if (loc == null) {
 
-			return;
+		return;
 
 		}
 
@@ -106,7 +107,7 @@ public class BitzCommandShow implements BitzCommand {
 		List<Location> locs = BitzData.getLocationListSelection(player);
 		if (locs.size() < 1) {
 
-			return;
+		return;
 
 		}
 

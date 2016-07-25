@@ -3,147 +3,148 @@ package com.rayzr522.bitzapi.world;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
-public class Region {
+import com.rayzr522.bitzapi.config.Serializable;
+import com.rayzr522.bitzapi.utils.MapUtils;
+import com.rayzr522.bitzapi.utils.data.Deserializer;
+import com.rayzr522.bitzapi.utils.data.Serializer;
 
-	private int minX;
-	private int minY;
-	private int minZ;
+public class Region implements Serializable<Region> {
 
-	private int maxX;
-	private int maxY;
-	private int maxZ;
+	private Vector	min;
+	private Vector	max;
 
 	private World world;
 
 	public Region(int x1, int y1, int z1, int x2, int y2, int z2, World world) {
 
-		if (x1 <= x2) {
-
-			this.minX = x1;
-			this.maxX = x2;
-
-		} else {
-
-			this.minX = x2;
-			this.maxX = x1;
-
-		}
-
-		if (y1 <= y2) {
-
-			this.minY = y1;
-			this.maxY = y2;
-
-		} else {
-
-			this.minY = y2;
-			this.maxY = y1;
-
-		}
-
-		if (z1 <= z2) {
-
-			this.minZ = z1;
-			this.maxZ = z2;
-
-		} else {
-
-			this.minZ = z2;
-			this.maxZ = z1;
-
-		}
-
-		this.world = world;
+		this(new Vector(x1, y1, z1), new Vector(x2, y2, z2), world);
 
 	}
 
-	public Region(Location v1, Location v2) {
+	public Region(Location l1, Location l2) {
 
-		this(v1.getBlockX(), v1.getBlockY(), v1.getBlockZ(), v2.getBlockX(), v2.getBlockY(), v2.getBlockZ(),
-				v1.getWorld());
+		this(l1.toVector(), l2.toVector(), l1.getWorld());
 
 	}
 
 	public Region(Vector v1, Vector v2, World world) {
-		this(v1.getBlockX(), v1.getBlockY(), v1.getBlockZ(), v2.getBlockX(), v2.getBlockY(), v2.getBlockZ(), world);
+
+		this.min = v1;
+		this.max = v2;
+
+		this.world = world;
+
+		evalMinMax();
+
 	}
 
-	public Vector getMinVec() {
+	private void evalMinMax() {
 
-		return new Vector(this.minX, this.minY, this.minZ);
+		Vector lMin = min;
+		Vector lMax = max;
 
+		this.min = Vector.getMinimum(lMin, lMax);
+		this.min = Vector.getMaximum(lMin, lMax);
+
+	}
+
+	public Vector getMin() {
+		return min;
+	}
+
+	public Vector getMax() {
+		return min;
+	}
+
+	public void setMin(Vector min) {
+		this.min = min;
+		evalMinMax();
+	}
+
+	public void setMax(Vector max) {
+		this.max = max;
+		evalMinMax();
 	}
 
 	public Location getMinLoc() {
-
-		return new Location(this.world, this.minX, this.minY, this.minZ);
-
-	}
-
-	public Vector getMaxVec() {
-
-		return new Vector(this.maxX, this.maxY, this.maxZ);
-
+		return min.toLocation(world);
 	}
 
 	public Location getMaxLoc() {
+		return max.toLocation(world);
+	}
 
-		return new Location(this.world, this.maxX, this.maxY, this.maxZ);
+	public void setMinLoc(Location min) {
+		this.min = min.toVector();
+		this.world = min.getWorld();
+		evalMinMax();
+	}
 
+	public void setMaxLoc(Location max) {
+		this.max = max.toVector();
+		this.world = max.getWorld();
+		evalMinMax();
 	}
 
 	public int getMinX() {
-		return minX;
-	}
-
-	public void setMinX(int minX) {
-		this.minX = minX;
+		return (int) min.getX();
 	}
 
 	public int getMinY() {
-		return minY;
-	}
-
-	public void setMinY(int minY) {
-		this.minY = minY;
+		return (int) min.getY();
 	}
 
 	public int getMinZ() {
-		return minZ;
-	}
-
-	public void setMinZ(int minZ) {
-		this.minZ = minZ;
+		return (int) min.getZ();
 	}
 
 	public int getMaxX() {
-		return maxX;
-	}
-
-	public void setMaxX(int maxX) {
-		this.maxX = maxX;
+		return (int) max.getX();
 	}
 
 	public int getMaxY() {
-		return maxY;
-	}
-
-	public void setMaxY(int maxY) {
-		this.maxY = maxY;
+		return (int) max.getY();
 	}
 
 	public int getMaxZ() {
-		return maxZ;
+		return (int) max.getZ();
 	}
 
-	public void setMaxZ(int maxZ) {
-		this.maxZ = maxZ;
+	public void setMinX(double x) {
+		min.setX(x);
+		evalMinMax();
+	}
+
+	public void setMinY(double y) {
+		min.setY(y);
+		evalMinMax();
+	}
+
+	public void setMinZ(double z) {
+		min.setZ(z);
+		evalMinMax();
+	}
+
+	public void setMaxX(double x) {
+		max.setX(x);
+		evalMinMax();
+	}
+
+	public void setMaxY(double y) {
+		max.setY(y);
+		evalMinMax();
+	}
+
+	public void setMaxZ(double z) {
+		max.setZ(z);
+		evalMinMax();
 	}
 
 	public World getWorld() {
@@ -158,11 +159,11 @@ public class Region {
 
 		List<Block> blocks = new ArrayList<Block>();
 
-		for (int x = minX; x <= maxX; x++) {
+		for (int x = getMinX(); x <= getMaxX(); x++) {
 
-			for (int y = minY; y <= maxY; y++) {
+			for (int y = getMinY(); y <= getMaxY(); y++) {
 
-				for (int z = minZ; z <= maxZ; z++) {
+				for (int z = getMinZ(); z <= getMaxZ(); z++) {
 
 					blocks.add(world.getBlockAt(x, y, z));
 
@@ -210,14 +211,34 @@ public class Region {
 
 	public boolean inside(int x, int y, int z) {
 
-		boolean xOk = (x >= minX && x <= maxX);
-		boolean yOk = (y >= minY && y <= maxY);
-		boolean zOk = (z >= minZ && z <= maxZ);
+		boolean xOk = (x >= getMinX() && x <= getMaxX());
+		boolean yOk = (y >= getMinY() && y <= getMaxY());
+		boolean zOk = (z >= getMinZ() && z <= getMaxZ());
 
 		boolean ok = (xOk && yOk && zOk);
 
 		return ok;
 
+	}
+
+	public Map<String, Object> serialize() {
+
+		Map<String, Object> serialized = MapUtils.serializerMap();
+
+		serialized.put("min", getMin().toString());
+		serialized.put("max", getMax().toString());
+		serialized.put("world", Serializer.worldId(world));
+
+		return serialized;
+	}
+
+	public Region deserialize(Map<String, Object> serialized) {
+
+		Vector min = Deserializer.vector((String) serialized.get("min"));
+		Vector max = Deserializer.vector((String) serialized.get("max"));
+		World world = Deserializer.world((String) serialized.get("world"));
+
+		return new Region(min, max, world);
 	}
 
 }

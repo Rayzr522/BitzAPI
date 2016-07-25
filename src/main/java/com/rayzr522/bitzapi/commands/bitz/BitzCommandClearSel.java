@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.commands.bitz;
 
 import java.util.ArrayList;
@@ -7,19 +8,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.rayzr522.bitzapi.BitzPlugin;
+import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
 import com.rayzr522.bitzapi.utils.commands.CommandUtils;
 import com.rayzr522.bitzapi.utils.data.BitzData;
 import com.rayzr522.bitzapi.world.PartialRegion;
 
-@CommandInfo(name = "clearsel", usage = "/bitz clearsel [reg:loc:locs]", desc = "Clear the selection of one or all of the Bitz Tools", pattern = "clear(sel)?|cs", perm = "bitzapi.tools")
+@CommandInfo(name = "clearsel", usage = "/{command} clearsel [reg:loc:locs]", desc = "Clear the selection of one or all of the Bitz Tools", pattern = "clear(sel)?|cs", perm = "{base}.tools")
 public class BitzCommandClearSel implements BitzCommand {
 
-	@Override
 	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 		if (!CommandUtils.isPlayer(sender)) {
 
+			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
 			return true;
 
 		}
