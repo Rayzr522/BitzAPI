@@ -32,14 +32,14 @@ public class BitzCommandRename implements BitzCommand {
 
 		}
 
-		if (ItemUtils.isEmpty(player.getItemInHand())) {
+		if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
 
 			plugin.messenger.playerInfo(player, "You have to be holding an item");
 			return true;
 
 		}
 
-		ItemUtils.setName(player.getItemInHand(), ArrayUtils.concatArray(args, " "));
+		ItemUtils.setName(player.getInventory().getItemInMainHand(), ArrayUtils.concatArray(args, " "));
 
 		return true;
 	}

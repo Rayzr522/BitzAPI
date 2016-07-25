@@ -13,6 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.conversations.Conversable;
 
+import com.google.common.base.Strings;
 import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.client.Messenger;
@@ -26,12 +27,15 @@ import com.rayzr522.bitzapi.utils.data.ArrayUtils;
  */
 public class CommandHandler implements CommandExecutor {
 
+	private static final String				TITLE						= ChatColor.DARK_GRAY + " " + ChatColor.STRIKETHROUGH + Strings.repeat("-", 10) + Messenger.TITLE + " COMMANDS" + ChatColor.DARK_GRAY + " " + ChatColor.STRIKETHROUGH
+		+ Strings.repeat("-", 10) + " ";
+
 	private HashMap<String, BitzCommand>	commands;
 	private String							baseCommand;
 	private String							basePerm;
 	private BitzPlugin						plugin;
 
-	private boolean showCommandsWithNoAccess = true;
+	private boolean							showCommandsWithNoAccess	= true;
 
 	/**
 	 * @param autoSetup
@@ -150,7 +154,7 @@ public class CommandHandler implements CommandExecutor {
 		List<BitzCommand> matches = getMatchingCommands(cmd);
 
 		while (matches.size() < 1 && args.length > 1) {
-			
+
 			cmd += " ";
 			cmd += args[1];
 			args = trimFirstArg(args);
@@ -201,7 +205,7 @@ public class CommandHandler implements CommandExecutor {
 			return true;
 
 		}
-		
+
 		String[] params = trimFirstArg(args);
 
 		if (!command.execute(sender, params, plugin)) {
@@ -244,7 +248,7 @@ public class CommandHandler implements CommandExecutor {
 	// Example: 'miner join <arena> : Join an arena'
 	private void showHelp(CommandSender sender) {
 
-		plugin.messenger.playerRaw(sender, Messenger.TITLE + " ----- COMMANDS ----- ");
+		plugin.messenger.playerRaw(sender, TITLE);
 
 		for (BitzCommand command : this.commands.values()) {
 

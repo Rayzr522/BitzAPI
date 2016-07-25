@@ -48,7 +48,6 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 		return;
 
 		}
-
 		boolean left = action == Action.LEFT_CLICK_BLOCK;
 
 		Player player = e.getPlayer();
@@ -123,6 +122,8 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 				BitzData.setLocationListSelection(id, locations);
 
+			} else {
+				// TODO: Send the event to a list of registered tools-handlers
 			}
 
 		} else {

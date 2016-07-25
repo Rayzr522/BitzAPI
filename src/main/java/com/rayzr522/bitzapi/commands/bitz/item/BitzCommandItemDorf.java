@@ -26,13 +26,13 @@ public class BitzCommandItemDorf implements BitzCommand {
 		}
 
 		Player player = (Player) sender;
-		if (ItemUtils.isEmpty(player.getItemInHand())) {
+		if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
 
 		return plugin.messenger.playerMessage(player, BitzMessages.NOT_HOLDING_ITEM.msg);
 
 		}
 
-		ItemStack item = player.getItemInHand();
+		ItemStack item = player.getInventory().getItemInMainHand();
 
 		String name = TextUtils.color("&0&f&0&f&k:::&bDORF&k:::");
 

@@ -11,12 +11,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.captainbern.minecraft.wrapper.nbt.NbtFactory;
-import com.captainbern.minecraft.wrapper.nbt.NbtTagCompound;
-import com.captainbern.minecraft.wrapper.nbt.NbtType;
 import com.rayzr522.bitzapi.BitzAPI;
 import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.utils.Pair;
+import com.rayzr522.bitzapi.utils.data.LoreData;
 
 public class BitzTools {
 
@@ -87,12 +85,10 @@ public class BitzTools {
 
 		item.setItemMeta(im);
 
-		NbtTagCompound tag = NbtFactory.toCompound(NbtFactory.createTag(NbtType.TAG_COMPOUND));
-
-		tag.put(BOOL_isTool, 1);
-		tag.put(STRING_toolType, plugin.getName() + ":" + name);
-		
-		NbtFactory.writeToItemStack(item, tag);
+		LoreData data = new LoreData(item);
+		data.set(STRING_toolType, plugin.getName() + ":" + name);
+		data.set(BOOL_isTool, true);
+		data.write(item);
 
 		return item;
 
@@ -113,40 +109,8 @@ public class BitzTools {
 
 		}
 
-		NbtTagCompound tag = NbtFactory.readFromItemStack(item);
-
-		if (!tag.containsKey(BOOL_isTool)) { return false; }
-
-		if (!(tag.getValue(BOOL_isTool).getType() == NbtType.TAG_INT)) { return false; }
-
-		if (!tag.containsKey(STRING_toolType)) { return false; }
-
-		if (!(tag.getValue(STRING_toolType).getType() == NbtType.TAG_STRING)) { return false; }
-
-		if (NbtFactory.readFromItemStack(item).getInt(BOOL_isTool) == 1) { return true; }
-
-		return false;
-
-		// ---- Old Code ----
-		//
-		// boolean isTool = false;
-		//
-		// for (Entry<Enchantment, Integer> entry :
-		// item.getEnchantments().entrySet()) {
-		//
-		// Enchantment enchant = entry.getKey();
-		// int level = entry.getValue() - 65536;
-		//
-		// if (enchant.getName().equals(Enchantment.SILK_TOUCH.getName()) &&
-		// level == -333) {
-		//
-		// isTool = true;
-		//
-		// }
-		//
-		// }
-
-		// return isTool;
+		LoreData data = new LoreData(item);
+		return data.getBool(BOOL_isTool);
 
 	}
 
@@ -160,38 +124,15 @@ public class BitzTools {
 	 */
 	public static ToolType getToolType(ItemStack item) {
 
-		NbtTagCompound tag = NbtFactory.readFromItemStack(item);
-
 		if (!isTool(item)) { return null; }
 
-		String type = tag.getString(STRING_toolType);
+		LoreData data = new LoreData(item);
+		String type = data.getString(STRING_toolType);
 		String[] split = type.split(":");
 
 		if (split.length != 2) { return null; }
 
 		return new ToolType(split[0], split[1]);
-
-		// int toolType = -1;
-		//
-		// if (!isTool(item)) {
-		//
-		// return -1;
-		//
-		// }
-		//
-		// for (Entry<Enchantment, Integer> entry :
-		// item.getEnchantments().entrySet()) {
-		//
-		// if
-		// (entry.getKey().getName().equals(Enchantment.DURABILITY.getName())) {
-		//
-		// toolType = entry.getValue() + 300 - 65536;
-		//
-		// }
-		//
-		// }
-		//
-		// return toolType;
 
 	}
 
@@ -200,34 +141,34 @@ public class BitzTools {
 		/**
 		 * Used in {@link BitzTools.createTool}
 		 */
-		public static final int REGION_TOOL = 0;
+		public static final int			REGION_TOOL				= 0;
 
 		/**
 		 * Used in {@link BitzTools.createTool}
 		 */
-		public static final int LOCATION_TOOL = 1;
+		public static final int			LOCATION_TOOL			= 1;
 
 		/**
 		 * Used in {@link BitzTools.createTool}
 		 */
-		public static final int LOCATION_LIST_TOOL = 2;
+		public static final int			LOCATION_LIST_TOOL		= 2;
 
 		/**
 		 * Used in {@link BitzTools.createTool}
 		 */
-		public static final String REGION_TOOL_NAME = "Region Tool";
+		public static final String		REGION_TOOL_NAME		= "Region Tool";
 
 		/**
 		 * Used in {@link BitzTools.createTool}
 		 */
-		public static final String LOCATION_TOOL_NAME = "Location Tool";
+		public static final String		LOCATION_TOOL_NAME		= "Location Tool";
 
 		/**
 		 * Used in {@link BitzTools.createTool}
 		 */
-		public static final String LOCATION_LIST_TOOL_NAME = "Location List Tool";
+		public static final String		LOCATION_LIST_TOOL_NAME	= "Location List Tool";
 
-		private Pair<String, String> pair;
+		private Pair<String, String>	pair;
 
 		public ToolType(String pluginName, String name) {
 

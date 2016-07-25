@@ -1,6 +1,8 @@
 
 package com.rayzr522.bitzapi.utils.data;
 
+import java.util.Arrays;
+
 public class ArrayUtils {
 
 	public static String concatArray(Object[] arr, String filler) {
@@ -33,15 +35,7 @@ public class ArrayUtils {
 
 		}
 
-		Object[] out = new Object[arr.length - 1];
-
-		for (int i = 1; i < arr.length; i++) {
-
-			out[i - 1] = arr[i];
-
-		}
-
-		return out;
+		return Arrays.copyOfRange(arr, 1, arr.length);
 
 	}
 
