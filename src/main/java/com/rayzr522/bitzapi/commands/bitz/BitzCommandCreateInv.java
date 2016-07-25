@@ -16,12 +16,11 @@ import com.rayzr522.bitzapi.utils.ConfigUtils;
 import com.rayzr522.bitzapi.utils.commands.CommandUtils;
 import com.rayzr522.bitzapi.utils.commands.TextUtils;
 
-@CommandInfo(name = "invcreate", usage = "/bitz invcreate [name]", desc = "Create an inventory, with an optional custom name", pattern = "inv(c(reate)?)?", perm = "bitzapi.inv.create")
+@CommandInfo(name = "invcreate", usage = "/{command} invcreate [name]", desc = "Create an inventory, with an optional custom name", pattern = "inv(c(reate)?)?", perm = "{base}.inv.create")
 public class BitzCommandCreateInv implements BitzCommand {
 
 	public static HashMap<Integer, Inventory> creationIds = new HashMap<Integer, Inventory>();
 
-	@Override
 	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
 		if (!CommandUtils.isPlayer(sender)) {

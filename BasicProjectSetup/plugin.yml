@@ -1,0 +1,10 @@
+name: <NAME>
+main: com.rayzr522.<ARTIFACT>.<NAME>
+version: <VERSION>
+description: <DESCRIPTION>
+author: Rayzr522
+depend: [BitzAPI]
+commands:
+  <COMMAND_NAME>:
+    description: <COMMAND_DESC>
+    #aliases: <ALIASES>

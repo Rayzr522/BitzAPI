@@ -22,6 +22,7 @@ public class BitzCommandSet implements BitzCommand {
 
 		if (!CommandUtils.isPlayer(sender)) {
 
+			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
 			return true;
 
 		}

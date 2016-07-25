@@ -34,19 +34,11 @@ public class ConfigUtils {
 
 		if (region == null) {
 
-			return;
+		return;
 
 		}
 
-		int minX = region.getMinX();
-		int minY = region.getMinY();
-		int minZ = region.getMinZ();
-
-		int maxX = region.getMaxX();
-		int maxY = region.getMaxY();
-		int maxZ = region.getMaxZ();
-
-		String formatted = minX + "," + minY + "," + minZ + "," + maxX + "," + maxY + "," + maxZ;
+		String formatted = region.getMin().toString() + "," + region.getMin().toString();
 
 		regionSection.set("pos", formatted);
 		saveWorld(regionSection, region.getWorld(), "world");
@@ -57,7 +49,7 @@ public class ConfigUtils {
 
 		if (!section.contains(type + "Region")) {
 
-			return null;
+		return null;
 
 		}
 
@@ -69,7 +61,7 @@ public class ConfigUtils {
 
 		if (split.length < 6) {
 
-			return null;
+		return null;
 
 		}
 
@@ -91,7 +83,7 @@ public class ConfigUtils {
 
 		if (location == null) {
 
-			return;
+		return;
 
 		}
 
@@ -110,7 +102,7 @@ public class ConfigUtils {
 
 		if (!section.contains(type + "Location")) {
 
-			return null;
+		return null;
 
 		}
 
@@ -120,7 +112,7 @@ public class ConfigUtils {
 
 		if (split.length < 4) {
 
-			return null;
+		return null;
 
 		}
 
@@ -143,7 +135,7 @@ public class ConfigUtils {
 
 		if (section.contains(name)) {
 
-			return section.getBoolean(name);
+		return section.getBoolean(name);
 
 		}
 
@@ -161,7 +153,7 @@ public class ConfigUtils {
 
 		if (!section.contains(name + "World")) {
 
-			return null;
+		return null;
 
 		}
 
@@ -173,7 +165,7 @@ public class ConfigUtils {
 
 		if (!plugin.getConfig().contains(path)) {
 
-			return plugin.getConfig().createSection(path);
+		return plugin.getConfig().createSection(path);
 
 		}
 
@@ -185,7 +177,7 @@ public class ConfigUtils {
 
 		if (!section.contains(path)) {
 
-			return section.createSection(path);
+		return section.createSection(path);
 
 		}
 
@@ -203,6 +195,14 @@ public class ConfigUtils {
 
 		plugin.reloadConfig();
 
+	}
+
+	public boolean sectionExists(ConfigurationSection section, String string) {
+		return section.isConfigurationSection(string);
+	}
+
+	public boolean sectionExists(String string) {
+		return plugin.getConfig().isConfigurationSection(string);
 	}
 
 }

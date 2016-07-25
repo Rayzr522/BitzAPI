@@ -3,7 +3,7 @@ package com.rayzr522.bitzapi.utils.data;
 
 public class ArrayUtils {
 
-	public static String concatArray(Object[] arr, char filler) {
+	public static String concatArray(Object[] arr, String filler) {
 
 		if (arr.length == 0) {
 
