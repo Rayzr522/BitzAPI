@@ -122,8 +122,6 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 				BitzData.setLocationListSelection(id, locations);
 
-			} else {
-				// TODO: Send the event to a list of registered tools-handlers
 			}
 
 		} else {

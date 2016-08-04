@@ -8,7 +8,7 @@ import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
-import com.rayzr522.bitzapi.utils.commands.CommandUtils;
+import com.rayzr522.bitzapi.utils.CommandUtils;
 
 @CommandInfo(name = "fling", usage = "/{command} fun fling [power]", desc = "Flings you in the direction you're looking!", pattern = "whe(e(e)?)?|fling", perm = "{base}.fun")
 public class BitzCommandFunFling implements BitzCommand {

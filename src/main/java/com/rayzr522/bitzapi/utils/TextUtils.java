@@ -1,5 +1,5 @@
 
-package com.rayzr522.bitzapi.utils.commands;
+package com.rayzr522.bitzapi.utils;
 
 import java.util.Collection;
 
@@ -37,9 +37,9 @@ public class TextUtils {
 
 		String[] words = lowerInput.split("_|-| ");
 
-		if (words.length <= 1) {
+		if (words.length < 1) {
 
-		return lowerInput;
+		return "";
 
 		}
 
@@ -119,20 +119,32 @@ public class TextUtils {
 
 	}
 
-	public static String color(String input) {
+	public static String colorize(String input) {
 
 		return input == null ? null : ChatColor.translateAlternateColorCodes(TextUtils.COLOR_CHAR, input);
 
 	}
 
-	public static String reverseColor(String input) {
+	public static String uncolorize(String input) {
 
 		return input == null ? null : input.replace(ChatColor.COLOR_CHAR, TextUtils.COLOR_CHAR);
 
 	}
 
+	public static String stripColor(String input) {
+
+		return ChatColor.stripColor(input);
+
+	}
+
 	public static boolean equalsLowerCase(String string, String string2) {
 		return ((string == null || string2 == null) ? false : string.toLowerCase().equals(string2.toLowerCase()));
+	}
+
+	public static String enumFormat(String text) {
+
+		return text.trim().toUpperCase().replace(" ", "_");
+
 	}
 
 }

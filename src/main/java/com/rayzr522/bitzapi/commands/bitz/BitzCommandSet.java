@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.commands.bitz;
 
 import org.bukkit.Material;
@@ -9,12 +10,12 @@ import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
-import com.rayzr522.bitzapi.utils.commands.CommandUtils;
+import com.rayzr522.bitzapi.utils.CommandUtils;
 import com.rayzr522.bitzapi.utils.data.BitzData;
 import com.rayzr522.bitzapi.world.PartialRegion;
 import com.rayzr522.bitzapi.world.Region;
 
-@CommandInfo(name = "set", usage = "/bitz set <block>", desc = "Sets the selected region to <block>", pattern = "set", perm = "bitzapi.set")
+@CommandInfo(name = "set", usage = "/{command} set <block>", desc = "Sets the selected region to <block>", pattern = "set", perm = "bitzapi.set")
 public class BitzCommandSet implements BitzCommand {
 
 	@SuppressWarnings("deprecation")
@@ -37,7 +38,7 @@ public class BitzCommandSet implements BitzCommand {
 		}
 
 		String type = args[0].toUpperCase();
-		Byte meta = 0;
+		byte meta = 0;
 
 		if (args[0].split("[:]").length == 2) {
 
@@ -48,10 +49,10 @@ public class BitzCommandSet implements BitzCommand {
 			} catch (Exception e) {
 
 				if (e.getClass().getName().equals("java.lang.NumberFormatException")) {
-					
+
 					plugin.messenger.playerError(player, "You can't specificy a metadata of greater than 127!");
 					meta = 0;
-					
+
 				}
 
 			}
@@ -70,8 +71,7 @@ public class BitzCommandSet implements BitzCommand {
 		PartialRegion partial = BitzData.getRegionSelection(player);
 		if (!partial.isComplete()) {
 
-			plugin.messenger.playerError(player,
-					"You have to make a complete selection with the region tool. Use '/bitz tools' or '/bitz tools reg' to get the region tool.");
+			plugin.messenger.playerError(player, "You have to make a complete selection with the region tool. Use '/bitz tools' or '/bitz tools reg' to get the region tool.");
 			return true;
 
 		}

@@ -45,6 +45,7 @@ public class BitzCommandShow implements BitzCommand {
 			if (args[0].equals("reg")) {
 
 				showRegion(player, plugin);
+				plugin.messenger.playerInfo(player, "Showing region");
 
 			}
 
@@ -53,6 +54,7 @@ public class BitzCommandShow implements BitzCommand {
 			if (args[0].equals("loc")) {
 
 				showLocation(player, plugin);
+				plugin.messenger.playerInfo(player, "Showing location");
 
 			}
 
@@ -61,6 +63,7 @@ public class BitzCommandShow implements BitzCommand {
 			if (args[0].equals("locs")) {
 
 				showLocationList(player, plugin);
+				plugin.messenger.playerInfo(player, "Showing locations list");
 
 			}
 
@@ -83,6 +86,7 @@ public class BitzCommandShow implements BitzCommand {
 		return;
 
 		}
+		
 		Region region = partial.toRegion();
 
 		BlockUtils.showGhostBlocks(RegionUtils.getFrame(region), player, Material.WOOL, (byte) 14, 10, plugin);

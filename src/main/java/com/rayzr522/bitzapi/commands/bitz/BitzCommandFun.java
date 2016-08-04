@@ -30,7 +30,7 @@ public class BitzCommandFun implements BitzCommand {
 	private void setup(BitzPlugin plugin) {
 
 		handler = new CommandHandler(plugin);
-		
+
 		handler.showCommandsWithNoAccess(false);
 
 		handler.registerCommand(BitzCommandFunFling.class);

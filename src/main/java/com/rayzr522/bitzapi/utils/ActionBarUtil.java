@@ -8,8 +8,6 @@ import java.lang.reflect.Method;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.rayzr522.bitzapi.utils.reflection.ReflectionUtils;
-
 /**
  * @author fillpant AKA mine-care
  *         <h1>Info:</h1> This is a utility class to overcome the problem that
@@ -27,22 +25,24 @@ public class ActionBarUtil {
 	private static Method			sendPacket;
 
 	static {
+
 		try {
-			
-			chatSer = ReflectionUtils.getConstructor(Class.forName("net.minecraft.server." + BV + ".ChatComponentText"), String.class);
+
+			chatSer = Class.forName("net.minecraft.server." + BV + ".ChatComponentText").getConstructor(String.class);
 			packetChat = Class.forName("net.minecraft.server." + BV + ".PacketPlayOutChat").getConstructor(Class.forName("net.minecraft.server." + BV + ".IChatBaseComponent"), byte.class);
 			getPlayerHandle = Class.forName("org.bukkit.craftbukkit." + BV + ".entity.CraftPlayer").getDeclaredMethod("getHandle");
 			playerConnection = Class.forName("net.minecraft.server." + BV + ".EntityPlayer").getDeclaredField("playerConnection");
 			sendPacket = Class.forName("net.minecraft.server." + BV + ".PlayerConnection").getDeclaredMethod("sendPacket", Class.forName("net.minecraft.server." + BV + ".Packet"));
 			initialised = true;
-			
+
 		} catch (ReflectiveOperationException e) {
-			
+
 			e.printStackTrace();
 			Bukkit.getServer().getLogger().warning("Cannot initialise Action Bar Utils (Blame fillpant)");
 			initialised = false;
-			
+
 		}
+
 	}
 
 	/**

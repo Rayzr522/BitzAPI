@@ -6,7 +6,7 @@ import org.bukkit.World;
 
 public class Serializer {
 
-	public static String worldId(World world) {
+	public static String worldID(World world) {
 
 		return world.getUID().toString();
 
@@ -14,7 +14,7 @@ public class Serializer {
 
 	public static String location(Location loc) {
 
-		return loc.toVector().toString() + ";" + worldId(loc.getWorld());
+		return loc.toVector().toString() + ";" + worldID(loc.getWorld());
 
 	}
 

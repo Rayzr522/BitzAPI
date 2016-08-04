@@ -1,10 +1,13 @@
 name: BitzAPI
 main: com.rayzr522.bitzapi.BitzAPI
-version: 1.1
+version: 1.2
 description: A random API with a bunch of random utilities thrown together into one random jar
 author: Rayzr522
 softdepend: [Vault]
 commands:
   bitz:
     description: Main BitzAPI command
-    aliases: bz
+    aliases:
+    - bz
+    - bapi
+    - bzapi

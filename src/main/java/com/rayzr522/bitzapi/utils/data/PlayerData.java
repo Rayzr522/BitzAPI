@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import com.rayzr522.bitzapi.config.Serializable;
-import com.rayzr522.bitzapi.utils.MapUtils;
 
 public class PlayerData implements Serializable<PlayerData> {
 

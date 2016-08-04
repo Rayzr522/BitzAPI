@@ -4,7 +4,7 @@ package com.rayzr522.bitzapi.utils.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rayzr522.bitzapi.utils.commands.TextUtils;
+import com.rayzr522.bitzapi.utils.TextUtils;
 
 public class ListUtils {
 
@@ -34,7 +34,7 @@ public class ListUtils {
 		if (list == null || isEmpty(list)) { return list; }
 		List<String> coloredList = new ArrayList<String>();
 		for (String string : list) {
-			coloredList.add(TextUtils.color(string));
+			coloredList.add(TextUtils.colorize(string));
 		}
 		return coloredList;
 	}
@@ -43,7 +43,7 @@ public class ListUtils {
 		if (list == null || isEmpty(list)) { return list; }
 		List<String> coloredList = new ArrayList<String>();
 		for (String string : list) {
-			coloredList.add(TextUtils.reverseColor(string));
+			coloredList.add(TextUtils.uncolorize(string));
 		}
 		return coloredList;
 	}

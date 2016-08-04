@@ -10,7 +10,7 @@ import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
 import com.rayzr522.bitzapi.utils.ActionBarUtil;
-import com.rayzr522.bitzapi.utils.commands.TextUtils;
+import com.rayzr522.bitzapi.utils.TextUtils;
 import com.rayzr522.bitzapi.utils.data.ArrayUtils;
 
 @CommandInfo(name = "ab", usage = "/{command} fun ab <player> <message>", desc = "Send an actionbar message to yourself", pattern = "ab(msg)?", perm = "{base}.fun.abmsg")
@@ -38,7 +38,7 @@ public class BitzCommandFunABMsg implements BitzCommand {
 
 		}
 
-		ActionBarUtil.sendActionBar(TextUtils.color(ArrayUtils.concatArray(ArrayUtils.removeFirst(args), " ")), player);
+		ActionBarUtil.sendActionBar(TextUtils.colorize(ArrayUtils.concatArray(ArrayUtils.removeFirst(args), " ")), player);
 
 		return true;
 

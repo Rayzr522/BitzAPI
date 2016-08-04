@@ -8,8 +8,7 @@ import java.util.Map.Entry;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
-import com.rayzr522.bitzapi.utils.MapUtils;
-import com.rayzr522.bitzapi.utils.world.ItemUtils;
+import com.rayzr522.bitzapi.utils.item.ItemUtils;
 
 public class LoreData {
 

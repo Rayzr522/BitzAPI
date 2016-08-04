@@ -1,5 +1,5 @@
 
-package com.rayzr522.bitzapi.utils.commands;
+package com.rayzr522.bitzapi.utils;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

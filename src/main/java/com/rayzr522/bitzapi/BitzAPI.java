@@ -7,18 +7,18 @@ import com.rayzr522.bitzapi.commands.bitz.BitzCommandClearSel;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandCreateInv;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandFun;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandItem;
+import com.rayzr522.bitzapi.commands.bitz.BitzCommandSet;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandShow;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandTools;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandVersion;
-import com.rayzr522.bitzapi.commands.bitz.item.BitzCommandItemDorf;
 
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
-public class BitzAPI extends BitzPlugin {
+public abstract class BitzAPI extends BitzPlugin {
 
-	public static BitzAPI instance;
+	public static BitzAPI		instance;
 
 	public static Permission	permission	= null;
 	public static Economy		economy		= null;
@@ -50,7 +50,8 @@ public class BitzAPI extends BitzPlugin {
 		return (economy != null);
 	}
 
-	public void onEnable() {
+	@Override
+	public final void onEnable() {
 
 		super.onEnable();
 
@@ -66,13 +67,22 @@ public class BitzAPI extends BitzPlugin {
 
 		registerCommands();
 
+		onLoad();
+
 	}
 
-	public void onDisable() {
+	public abstract void onLoad();
+
+	@Override
+	public final void onDisable() {
 
 		super.onDisable();
 
+		onUnload();
+
 	}
+
+	public abstract void onUnload();
 
 	private void registerCommands() {
 
@@ -82,6 +92,7 @@ public class BitzAPI extends BitzPlugin {
 		// BitzAPI-tools related commands
 		commandHandler.registerCommand(BitzCommandTools.class);
 		commandHandler.registerCommand(BitzCommandShow.class);
+		commandHandler.registerCommand(BitzCommandSet.class);
 		commandHandler.registerCommand(BitzCommandClearSel.class);
 
 		// BitzAPI-inventory system tool
@@ -89,7 +100,6 @@ public class BitzAPI extends BitzPlugin {
 
 		// Sub CommandHandlers
 		commandHandler.registerCommand(BitzCommandFun.class);
-		commandHandler.registerCommand(BitzCommandItemDorf.class);
 		commandHandler.registerCommand(BitzCommandItem.class);
 
 	}

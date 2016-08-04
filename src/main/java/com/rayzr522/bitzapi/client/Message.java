@@ -8,7 +8,7 @@ public class Message {
 	public String		text;
 	public ChatColor	type;
 
-	public boolean returnType;
+	public boolean		returnType;
 
 	/**
 	 * @param text
@@ -29,11 +29,21 @@ public class Message {
 	/**
 	 * @param s
 	 *            the text to replace with
-	 * @return Returns this text with all instances of "%" changed to {@code s}
+	 * @return Returns this text with all the {#} changed to {@code s}
 	 */
-	public String format(String s) {
+	public String format(String... s) {
 
-		return s == null ? "" : this.text.replace("%", s);
+		if (s == null) { return text; }
+
+		String out = text;
+
+		for (int i = 0; i < s.length; i++) {
+
+			out = out.replaceAll("{" + i + "}", s[i]);
+
+		}
+
+		return out;
 
 	}
 

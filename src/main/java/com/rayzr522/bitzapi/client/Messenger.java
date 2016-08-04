@@ -7,7 +7,7 @@ import org.bukkit.conversations.Conversable;
 import org.bukkit.entity.Player;
 
 import com.rayzr522.bitzapi.BitzPlugin;
-import com.rayzr522.bitzapi.utils.commands.TextUtils;
+import com.rayzr522.bitzapi.utils.TextUtils;
 
 /**
  * @author PeterBlood
@@ -21,16 +21,16 @@ public class Messenger {
 	public static final ChatColor	ERROR	= ChatColor.RED;
 	public static final ChatColor	TITLE	= ChatColor.GOLD;
 
-	private ChatColor	info	= INFO;
-	private ChatColor	note	= NOTE;
-	private ChatColor	warning	= WARNING;
-	private ChatColor	error	= ERROR;
-	private ChatColor	title	= TITLE;
+	private ChatColor				info	= INFO;
+	private ChatColor				note	= NOTE;
+	private ChatColor				warning	= WARNING;
+	private ChatColor				error	= ERROR;
+	private ChatColor				title	= TITLE;
 
 	@SuppressWarnings("unused")
-	private BitzPlugin	plugin;
-	private String		name;
-	private String		prefix;
+	private BitzPlugin				plugin;
+	private String					name;
+	private String					prefix;
 
 	/**
 	 * @param plugin
@@ -55,9 +55,9 @@ public class Messenger {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(TextUtils.color(prefix + " &f"));
+		builder.append(TextUtils.colorize(prefix + " &f"));
 
-		builder.append(color + TextUtils.color(message));
+		builder.append(color + TextUtils.colorize(message));
 
 		return builder.toString();
 

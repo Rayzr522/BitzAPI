@@ -1,5 +1,5 @@
 
-package com.rayzr522.bitzapi.utils.world;
+package com.rayzr522.bitzapi.utils.item;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.rayzr522.bitzapi.utils.commands.TextUtils;
+import com.rayzr522.bitzapi.utils.TextUtils;
 import com.rayzr522.bitzapi.utils.data.ListUtils;
 
 public class ItemUtils {
@@ -92,7 +92,7 @@ public class ItemUtils {
 		if (isEmpty(item)) { return; }
 
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(TextUtils.color(name));
+		meta.setDisplayName(TextUtils.colorize(name));
 		item.setItemMeta(meta);
 
 	}

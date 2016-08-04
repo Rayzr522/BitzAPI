@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.utils.data;
 
 import java.util.ArrayList;
@@ -12,9 +13,9 @@ import com.rayzr522.bitzapi.world.PartialRegion;
 
 public class BitzData {
 
-	public static final HashMap<UUID, PartialRegion> regionSelections = new HashMap<UUID, PartialRegion>();
-	public static final HashMap<UUID, Location> locationSelections = new HashMap<UUID, Location>();
-	public static final HashMap<UUID, List<Location>> locationListSelections = new HashMap<UUID, List<Location>>();
+	public static final HashMap<UUID, PartialRegion>	regionSelections		= new HashMap<UUID, PartialRegion>();
+	public static final HashMap<UUID, Location>			locationSelections		= new HashMap<UUID, Location>();
+	public static final HashMap<UUID, List<Location>>	locationListSelections	= new HashMap<UUID, List<Location>>();
 
 	public static PartialRegion getRegionSelection(UUID playerId) {
 
@@ -81,7 +82,7 @@ public class BitzData {
 		locationListSelections.put(playerId, locationList);
 
 	}
-	
+
 	public static void setRegionSelection(Player player, PartialRegion region) {
 
 		setRegionSelection(player.getUniqueId(), region);

@@ -11,8 +11,8 @@ import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
 import com.rayzr522.bitzapi.config.Serializable;
-import com.rayzr522.bitzapi.utils.MapUtils;
 import com.rayzr522.bitzapi.utils.data.Deserializer;
+import com.rayzr522.bitzapi.utils.data.MapUtils;
 import com.rayzr522.bitzapi.utils.data.Serializer;
 
 public class Region implements Serializable<Region> {
@@ -227,7 +227,7 @@ public class Region implements Serializable<Region> {
 
 		serialized.put("min", getMin().toString());
 		serialized.put("max", getMax().toString());
-		serialized.put("world", Serializer.worldId(world));
+		serialized.put("world", Serializer.worldID(world));
 
 		return serialized;
 	}

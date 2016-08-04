@@ -1,8 +1,10 @@
 
-package com.rayzr522.bitzapi.utils;
+package com.rayzr522.bitzapi.utils.data;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.rayzr522.bitzapi.utils.Pair;
 
 public class MapUtils {
 

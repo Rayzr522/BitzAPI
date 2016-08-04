@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.commands.bitz;
 
 import java.util.HashMap;
@@ -12,9 +13,9 @@ import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.client.inv.InvUtils;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
+import com.rayzr522.bitzapi.utils.CommandUtils;
 import com.rayzr522.bitzapi.utils.ConfigUtils;
-import com.rayzr522.bitzapi.utils.commands.CommandUtils;
-import com.rayzr522.bitzapi.utils.commands.TextUtils;
+import com.rayzr522.bitzapi.utils.TextUtils;
 
 @CommandInfo(name = "invcreate", usage = "/{command} invcreate [name]", desc = "Create an inventory, with an optional custom name", pattern = "inv(c(reate)?)?", perm = "{base}.inv.create")
 public class BitzCommandCreateInv implements BitzCommand {
@@ -39,19 +40,18 @@ public class BitzCommandCreateInv implements BitzCommand {
 			name = args[0];
 
 		}
-		
-		name = TextUtils.color(name);
+
+		name = TextUtils.colorize(name);
 
 		Inventory inventory;
 
 		if (plugin.configUtils.getSection("createdInvs").isConfigurationSection(ConfigUtils.toConfigPath(name))) {
 
-			inventory = InvUtils.createInventory(player, plugin,
-					plugin.configUtils.getSection("createdInvs." + ConfigUtils.toConfigPath(name)));
+			inventory = InvUtils.createInventory(player, plugin, plugin.configUtils.getSection("createdInvs." + ConfigUtils.toConfigPath(name)));
 
 		} else {
 
-			inventory = InvUtils.createInventory(player, 6, name, plugin, UUID.randomUUID().hashCode());
+			inventory = InvUtils.createInventory(plugin, player, 6, name, UUID.randomUUID().hashCode());
 
 		}
 
