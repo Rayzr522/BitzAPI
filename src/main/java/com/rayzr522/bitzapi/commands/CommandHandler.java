@@ -15,8 +15,8 @@ import org.bukkit.conversations.Conversable;
 
 import com.google.common.base.Strings;
 import com.rayzr522.bitzapi.BitzPlugin;
-import com.rayzr522.bitzapi.client.BitzMessages;
-import com.rayzr522.bitzapi.client.Messenger;
+import com.rayzr522.bitzapi.message.BitzMessages;
+import com.rayzr522.bitzapi.message.Messenger;
 import com.rayzr522.bitzapi.utils.data.ArrayUtils;
 
 /**

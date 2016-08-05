@@ -1,5 +1,5 @@
 
-package com.rayzr522.bitzapi.client;
+package com.rayzr522.bitzapi.message;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

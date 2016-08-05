@@ -6,9 +6,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.rayzr522.bitzapi.client.Messenger;
 import com.rayzr522.bitzapi.commands.CommandHandler;
-import com.rayzr522.bitzapi.server.BitzLogger;
+import com.rayzr522.bitzapi.message.BitzLogger;
+import com.rayzr522.bitzapi.message.Messenger;
+import com.rayzr522.bitzapi.plugin.BitzAPI;
 import com.rayzr522.bitzapi.utils.ConfigUtils;
 
 public class BitzPlugin extends JavaPlugin {

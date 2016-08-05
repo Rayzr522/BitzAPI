@@ -1,5 +1,5 @@
 
-package com.rayzr522.bitzapi;
+package com.rayzr522.bitzapi.plugin;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.rayzr522.bitzapi.BitzHandler;
 import com.rayzr522.bitzapi.client.inv.InvUtils;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandCreateInv;
 import com.rayzr522.bitzapi.utils.data.BitzData;

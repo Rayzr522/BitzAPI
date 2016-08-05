@@ -1,8 +1,9 @@
 
-package com.rayzr522.bitzapi;
+package com.rayzr522.bitzapi.plugin;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandClearSel;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandCreateInv;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandFun;

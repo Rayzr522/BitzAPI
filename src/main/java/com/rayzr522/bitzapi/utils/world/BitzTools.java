@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.rayzr522.bitzapi.BitzAPI;
 import com.rayzr522.bitzapi.BitzPlugin;
+import com.rayzr522.bitzapi.plugin.BitzAPI;
 import com.rayzr522.bitzapi.utils.Pair;
 import com.rayzr522.bitzapi.utils.data.LoreData;
 import com.rayzr522.bitzapi.utils.item.ItemUtils;

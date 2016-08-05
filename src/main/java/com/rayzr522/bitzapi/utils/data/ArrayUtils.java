@@ -39,4 +39,30 @@ public class ArrayUtils {
 
 	}
 
+	public static Object[] removeLast(Object[] arr) {
+
+		if (arr.length <= 1) {
+
+		return arr;
+
+		}
+
+		Object[] out = new Object[arr.length - 1];
+
+		for (int i = 0; i < arr.length - 1; i++) {
+
+			out[i] = arr[i];
+
+		}
+
+		return out;
+
+	}
+
+	public static <T> T last(T[] arr) {
+
+		return arr[arr.length - 1];
+
+	}
+
 }

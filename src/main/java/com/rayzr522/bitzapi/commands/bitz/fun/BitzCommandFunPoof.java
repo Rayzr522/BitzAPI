@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
 import com.rayzr522.bitzapi.BitzPlugin;
-import com.rayzr522.bitzapi.client.BitzMessages;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
+import com.rayzr522.bitzapi.message.BitzMessages;
 import com.rayzr522.bitzapi.utils.CommandUtils;
 
 @CommandInfo(name = "poof", usage = "/{command} fun poof", desc = "Poof!", pattern = "poof", perm = "{base}.fun")

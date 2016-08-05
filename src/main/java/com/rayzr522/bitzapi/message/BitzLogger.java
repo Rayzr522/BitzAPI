@@ -1,5 +1,5 @@
 
-package com.rayzr522.bitzapi.server;
+package com.rayzr522.bitzapi.message;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
