@@ -60,6 +60,10 @@ public class PlayerData implements Serializable<PlayerData> {
 
 	}
 
+	/**
+	 * Clears the player's inventory, sets their food and health to 20 and
+	 * clears their potion effects
+	 */
 	public void clearPlayer() {
 
 		player.getInventory().clear();
@@ -69,6 +73,14 @@ public class PlayerData implements Serializable<PlayerData> {
 
 	}
 
+	/**
+	 * Stores
+	 * 
+	 * @param clear
+	 *            whether or not to clear the player after storing
+	 *            {@link PlayerData#clearPlayer()}
+	 * @return
+	 */
 	public PlayerData store(boolean clear) {
 
 		canFly = player.getAllowFlight();
@@ -97,6 +109,12 @@ public class PlayerData implements Serializable<PlayerData> {
 
 	}
 
+	/**
+	 * Sets the player's stats to what they were before storing. If the player's
+	 * stats haven't been stored yet then it won't do anything.
+	 * 
+	 * @return the PlayerData object
+	 */
 	public PlayerData restore() {
 
 		if (!stored) { return null; }
@@ -121,10 +139,17 @@ public class PlayerData implements Serializable<PlayerData> {
 
 	}
 
+	/**
+	 * @return whether or not the player's data has been stored yet
+	 */
 	public boolean isStored() {
 		return stored;
 	}
 
+	/**
+	 * Serializes this PlayerData instance into a {@code <String, Object>} map
+	 * for storing purposes
+	 */
 	public Map<String, Object> serialize() {
 
 		Map<String, Object> serialized = MapUtils.empty();
@@ -152,6 +177,9 @@ public class PlayerData implements Serializable<PlayerData> {
 
 	}
 
+	/**
+	 * Constructs a PlayerData object from a {@code <String, Object>} map
+	 */
 	@SuppressWarnings("unchecked")
 	public PlayerData deserialize(Map<String, Object> serialized) {
 
@@ -165,6 +193,7 @@ public class PlayerData implements Serializable<PlayerData> {
 
 		UUID id = UUID.fromString((String) serialized.get("player"));
 		Player player = Bukkit.getPlayer(id);
+
 		if (player == null) { return null; }
 
 		this.player = player;

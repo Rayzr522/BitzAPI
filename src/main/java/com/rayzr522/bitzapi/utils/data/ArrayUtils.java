@@ -5,9 +5,16 @@ import java.util.Arrays;
 
 public class ArrayUtils {
 
+	/**
+	 * Concatenates the array with a certain string
+	 * 
+	 * @param arr
+	 * @param filler
+	 * @return
+	 */
 	public static String concatArray(Object[] arr, String filler) {
 
-		if (arr.length == 0) {
+		if (arr == null || arr.length == 0 || filler == null) {
 
 		return "";
 
@@ -27,9 +34,15 @@ public class ArrayUtils {
 
 	}
 
-	public static Object[] removeFirst(Object[] arr) {
+	/**
+	 * Removes the first element from an array if the array length is > 1
+	 * 
+	 * @param arr
+	 * @return
+	 */
+	public static <T> T[] removeFirst(T[] arr) {
 
-		if (arr.length < 2) {
+		if (arr.length <= 1) {
 
 		return arr;
 
@@ -38,6 +51,13 @@ public class ArrayUtils {
 		return Arrays.copyOfRange(arr, 1, arr.length);
 
 	}
+
+	/**
+	 * Removes the last element from an array if the array length is > 1
+	 * 
+	 * @param arr
+	 * @return
+	 */
 
 	public static Object[] removeLast(Object[] arr) {
 
@@ -59,8 +79,16 @@ public class ArrayUtils {
 
 	}
 
+	/**
+	 * Returns the last element in the array or null if the arr is null or has a
+	 * length of zero
+	 * 
+	 * @param arr
+	 * @return
+	 */
 	public static <T> T last(T[] arr) {
 
+		if (arr == null || arr.length == 0) { return null; }
 		return arr[arr.length - 1];
 
 	}

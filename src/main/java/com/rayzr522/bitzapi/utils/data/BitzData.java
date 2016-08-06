@@ -17,6 +17,11 @@ public class BitzData {
 	public static final HashMap<UUID, Location>			locationSelections		= new HashMap<UUID, Location>();
 	public static final HashMap<UUID, List<Location>>	locationListSelections	= new HashMap<UUID, List<Location>>();
 
+	/**
+	 * Gets the region selection for {@code playerId}
+	 * @param playerId
+	 * @return
+	 */
 	public static PartialRegion getRegionSelection(UUID playerId) {
 
 		if (!regionSelections.containsKey(playerId) || regionSelections.get(playerId) == null) {
@@ -29,12 +34,22 @@ public class BitzData {
 
 	}
 
+	/**
+	 * Gets the location selection for {@code playerId}
+	 * @param playerId
+	 * @return
+	 */
 	public static Location getLocationSelection(UUID playerId) {
 
 		return locationSelections.get(playerId);
 
 	}
 
+	/**
+	 * Gets the location list selection for {@code playerId}
+	 * @param playerId
+	 * @return
+	 */
 	public static List<Location> getLocationListSelection(UUID playerId) {
 
 		if (!locationListSelections.containsKey(playerId) || locationListSelections.get(playerId) == null) {
@@ -47,18 +62,33 @@ public class BitzData {
 
 	}
 
+	/**
+	 * Gets the region selection for {@code player}
+	 * @param playerId
+	 * @return
+	 */
 	public static PartialRegion getRegionSelection(Player player) {
 
 		return getRegionSelection(player.getUniqueId());
 
 	}
 
+	/**
+	 * Gets the location selection for {@code player}
+	 * @param playerId
+	 * @return
+	 */
 	public static Location getLocationSelection(Player player) {
 
 		return getLocationSelection(player.getUniqueId());
 
 	}
 
+	/**
+	 * Gets the location list selection for {@code player}
+	 * @param playerId
+	 * @return
+	 */
 	public static List<Location> getLocationListSelection(Player player) {
 
 		return getLocationListSelection(player.getUniqueId());

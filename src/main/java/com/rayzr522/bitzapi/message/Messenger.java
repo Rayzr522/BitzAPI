@@ -10,7 +10,7 @@ import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.utils.TextUtils;
 
 /**
- * @author PeterBlood
+ * @author Rayzr522
  *
  */
 public class Messenger {

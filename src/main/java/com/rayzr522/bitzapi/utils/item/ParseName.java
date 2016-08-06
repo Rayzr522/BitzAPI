@@ -1,4 +1,4 @@
-package com.rayzr522.bitzapi.utils.item.parseCommand;
+package com.rayzr522.bitzapi.utils.item;
 
 import java.util.Arrays;
 import java.util.List;

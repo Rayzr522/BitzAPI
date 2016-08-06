@@ -20,7 +20,7 @@ public class Region implements Serializable<Region> {
 	private Vector	min;
 	private Vector	max;
 
-	private World world;
+	private World	world;
 
 	public Region(int x1, int y1, int z1, int x2, int y2, int z2, World world) {
 
@@ -223,11 +223,11 @@ public class Region implements Serializable<Region> {
 
 	public Map<String, Object> serialize() {
 
-		Map<String, Object> serialized = MapUtils.serializerMap();
+		Map<String, Object> serialized = MapUtils.empty();
 
 		serialized.put("min", getMin().toString());
 		serialized.put("max", getMax().toString());
-		serialized.put("world", Serializer.worldID(world));
+		serialized.put("world", Serializer.world(world));
 
 		return serialized;
 	}

@@ -19,8 +19,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.rayzr522.bitzapi.BitzHandler;
-import com.rayzr522.bitzapi.client.inv.InvUtils;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandCreateInv;
+import com.rayzr522.bitzapi.inv.InvUtils;
 import com.rayzr522.bitzapi.utils.data.BitzData;
 import com.rayzr522.bitzapi.utils.world.BitzTools;
 import com.rayzr522.bitzapi.utils.world.BitzTools.ToolType;

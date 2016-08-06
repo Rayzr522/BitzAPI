@@ -21,7 +21,7 @@ import com.rayzr522.bitzapi.utils.data.ArrayUtils;
 
 /**
  * 
- * @author PeterBlood
+ * @author Rayzr522
  * @see BitzCommand
  *
  */
@@ -33,6 +33,9 @@ public class CommandHandler implements CommandExecutor {
 	private HashMap<String, BitzCommand>	commands;
 	private String							baseCommand;
 	private String							basePerm;
+	/**
+	 * The instance of the plugin that this CommandHandler is registered to
+	 */
 	private BitzPlugin						plugin;
 
 	private boolean							showCommandsWithNoAccess	= true;
@@ -121,6 +124,12 @@ public class CommandHandler implements CommandExecutor {
 
 	}
 
+	/**
+	 * Sets this to be the executor for {@code command} if it is a registered
+	 * command of {@link CommandHandler#plugin}
+	 * 
+	 * @param command
+	 */
 	public void executorFor(String command) {
 
 		if (plugin.getCommand(command) == null) { return; }
@@ -130,6 +139,9 @@ public class CommandHandler implements CommandExecutor {
 
 	}
 
+	/**
+	 * Called when a command is executed
+	 */
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 
 		String cmd = getCmd(args);
@@ -217,14 +229,34 @@ public class CommandHandler implements CommandExecutor {
 		return true;
 	}
 
+	/**
+	 * Gets the first parameter in lower case unless args.length < 1 in which
+	 * case it returns an empty String
+	 * 
+	 * @param args
+	 * @return
+	 */
 	private String getCmd(String[] args) {
 		return (args.length > 0) ? args[0].toLowerCase() : "";
 	}
 
+	/**
+	 * Gets the last item in {@code args}
+	 * 
+	 * @param args
+	 * @return
+	 */
 	private String getLast(String[] args) {
 		return (args.length > 0) ? args[(args.length - 1)] : "";
 	}
 
+	/**
+	 * Returns all commands that {@code cmd} fits the regex of
+	 * 
+	 * @param cmd
+	 *            the String to test
+	 * @return
+	 */
 	private List<BitzCommand> getMatchingCommands(String cmd) {
 
 		List<BitzCommand> matches = new ArrayList<BitzCommand>();
@@ -243,9 +275,11 @@ public class CommandHandler implements CommandExecutor {
 
 	}
 
-	// Show help messages
-	// Format: 'usage : description'
-	// Example: 'miner join <arena> : Join an arena'
+	/**
+	 * Show help messages<br/>
+	 * Format: <code>'usage : description'</code><br/>
+	 * Example: <code>'miner join <arena> | Join an arena'</code>
+	 */
 	private void showHelp(CommandSender sender) {
 
 		plugin.messenger.playerRaw(sender, TITLE);
@@ -281,7 +315,14 @@ public class CommandHandler implements CommandExecutor {
 
 	}
 
-	// Show usage for a command
+	/**
+	 * Show the usage for a command
+	 * 
+	 * @param sender
+	 *            who to send the usage to
+	 * @param command
+	 *            the BitzCommand to show the usage for
+	 */
 	private void showUsage(CommandSender sender, BitzCommand command) {
 
 		plugin.messenger.playerTitle(sender, "Usage:");
@@ -298,6 +339,12 @@ public class CommandHandler implements CommandExecutor {
 
 	}
 
+	/**
+	 * Whether or not a specific command
+	 * 
+	 * @param command
+	 * @return
+	 */
 	public boolean isRegistered(String command) {
 
 		return this.commands.containsKey(command);

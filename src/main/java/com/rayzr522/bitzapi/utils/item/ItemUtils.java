@@ -11,9 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.rayzr522.bitzapi.utils.TextUtils;
 import com.rayzr522.bitzapi.utils.data.ListUtils;
-import com.rayzr522.bitzapi.utils.item.parseCommand.ParseCommand;
-import com.rayzr522.bitzapi.utils.item.parseCommand.ParseEnchantment;
-import com.rayzr522.bitzapi.utils.item.parseCommand.ParseName;
 
 public class ItemUtils {
 	

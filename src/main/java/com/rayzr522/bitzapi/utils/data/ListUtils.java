@@ -58,22 +58,4 @@ public class ListUtils {
 		return new ArrayList<T>();
 	}
 
-	public static <T> List<T> combine(List<T>... lists) {
-
-		List<T> output = empty();
-
-		for (List<T> list : lists) {
-
-			for (T item : list) {
-
-				output.add(item);
-
-			}
-
-		}
-
-		return output;
-
-	}
-
 }

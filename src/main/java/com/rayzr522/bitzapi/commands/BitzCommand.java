@@ -8,7 +8,7 @@ import com.rayzr522.bitzapi.BitzPlugin;
 /**
  * Classes implementing this require the @CommandInfo annotation
  * 
- * @author PeterBlood
+ * @author Rayzr522
  * @see CommandInfo
  *
  */

@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
  * <hr>
  * <br>
  * 
- * @author PeterBlood
+ * @author Rayzr522
  * @see BitzCommand
  *
  */

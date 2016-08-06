@@ -1,5 +1,5 @@
 
-package com.rayzr522.bitzapi.client.inv;
+package com.rayzr522.bitzapi.inv;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
