@@ -21,5 +21,9 @@ public class BitzHolder implements InventoryHolder {
 	public Inventory getInventory() {
 		return inv;
 	}
+	
+	public BitzPlugin getPlugin() {
+		return plugin;
+	}
 
 }
