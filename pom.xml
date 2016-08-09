@@ -25,7 +25,6 @@
 		<dependency>
 			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>VaultAPI</artifactId>
-			<version>1.6</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -42,4 +41,13 @@
 			</resource>
 		</resources>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>net.milkbowl.vault</groupId>
+				<artifactId>VaultAPI</artifactId>
+				<version>1.6</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
