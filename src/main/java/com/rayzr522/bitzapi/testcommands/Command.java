@@ -144,9 +144,27 @@ public class Command implements CommandExecutor {
 		return command;
 	}
 
+	/**
+	 * Sets this to be the executor for the {@code command}. If the usage or
+	 * description is undefined for this but is defined in the PluginCommand it
+	 * copies it over to this.
+	 * 
+	 * @param command
+	 * @return
+	 */
 	public Command executorFor(PluginCommand command) {
 		this.command = command;
+
 		command.setExecutor(this);
+
+		if (usage == null && command.getUsage() != null && command.getUsage().trim().length() > 0) {
+			usage = command.getUsage();
+		}
+
+		if (desc == null && command.getDescription() != null && command.getDescription().trim().length() > 0) {
+			desc = command.getDescription();
+		}
+
 		return this;
 	}
 
