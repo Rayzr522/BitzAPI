@@ -12,7 +12,7 @@ import com.rayzr522.bitzapi.message.Messenger;
 import com.rayzr522.bitzapi.plugin.BitzAPI;
 import com.rayzr522.bitzapi.utils.ConfigUtils;
 
-public class BitzPlugin extends JavaPlugin {
+public abstract class BitzPlugin extends JavaPlugin {
 
 	public BitzLogger			logger;
 	public Messenger			messenger;
@@ -30,22 +30,32 @@ public class BitzPlugin extends JavaPlugin {
 	 * registerCommands();
 	 * </code>
 	 */
-	public void onEnable() {
+	public final void onEnable() {
 
 		this.logger = new BitzLogger(this);
 		this.messenger = new Messenger(this);
 		this.configUtils = new ConfigUtils(this);
 		this.commandHandler = new CommandHandler(this, false);
 
+		commandHandler.autoSetup();
+
+		registerCommands();
+
 		logger.loaded();
 
 	}
 
-	public void onDisable() {
+	public final void onDisable() {
 
 		logger.unloaded();
 
 	}
+
+	public abstract void onLoad();
+
+	public abstract void onUnload();
+
+	public abstract void registerCommands();
 
 	/**
 	 * @param player

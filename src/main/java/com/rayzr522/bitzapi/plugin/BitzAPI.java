@@ -17,7 +17,7 @@ import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
-public abstract class BitzAPI extends BitzPlugin {
+public class BitzAPI extends BitzPlugin {
 
 	public static BitzAPI		instance;
 
@@ -30,6 +30,7 @@ public abstract class BitzAPI extends BitzPlugin {
 		if (permissionProvider != null) {
 			permission = permissionProvider.getProvider();
 		}
+
 		return (permission != null);
 	}
 
@@ -52,9 +53,7 @@ public abstract class BitzAPI extends BitzPlugin {
 	}
 
 	@Override
-	public final void onEnable() {
-
-		super.onEnable();
+	public void onLoad() {
 
 		instance = this;
 
@@ -64,28 +63,16 @@ public abstract class BitzAPI extends BitzPlugin {
 
 		registerEventHandler(new BitzAPIHandler(this));
 
-		commandHandler.autoSetup();
-
-		registerCommands();
-
-		onLoad();
-
 	}
 
-	public abstract void onLoad();
-
 	@Override
-	public final void onDisable() {
+	public void onUnload() {
 
 		super.onDisable();
 
-		onUnload();
-
 	}
 
-	public abstract void onUnload();
-
-	private void registerCommands() {
+	public void registerCommands() {
 
 		// Version
 		commandHandler.registerCommand(BitzCommandVersion.class);
