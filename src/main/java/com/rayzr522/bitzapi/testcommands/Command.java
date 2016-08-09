@@ -2,6 +2,7 @@
 package com.rayzr522.bitzapi.testcommands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,8 @@ import com.rayzr522.bitzapi.utils.data.ArrayUtils;
 public class Command implements CommandExecutor {
 
 	private String					name;
-	private Map<String, String>		msgs;
-	private Map<String, Command>	subs;
+	private Map<String, String>		msgs	= new HashMap<String, String>();
+	private Map<String, Command>	subs	= new HashMap<String, Command>();
 	private PluginCommand			command;
 	private CommandExecutor			commandExecutor;
 	private String					regex;
@@ -60,7 +61,16 @@ public class Command implements CommandExecutor {
 					// fit the bill?
 				}
 
-				return matches.get(0).onCommand(sender, cmd, args[0].toLowerCase(), ArrayUtils.removeFirst(args));
+				Command match = matches.get(0);
+
+				if (!match.onCommand(sender, cmd, args[0].toLowerCase(), ArrayUtils.removeFirst(args))) {
+					if (match.getUsage() != null) {
+						sender.sendMessage(match.getUsage());
+					}
+					return false;
+				}
+
+				return true;
 
 			}
 
@@ -75,6 +85,7 @@ public class Command implements CommandExecutor {
 
 		List<Command> matches = new ArrayList<Command>();
 
+		System.out.println("subs == null?  " + subs == null);
 		for (Command sub : subs.values()) {
 			if (param.matches(sub.getRegex())) {
 				matches.add(sub);

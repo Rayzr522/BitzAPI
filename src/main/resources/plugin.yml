@@ -1,5 +1,5 @@
 name: BitzAPI
-main: com.rayzr522.bitzapi.BitzAPI
+main: com.rayzr522.bitzapi.plugin.BitzAPI
 version: 1.2
 description: A random API with a bunch of random utilities thrown together into one random jar
 author: Rayzr522

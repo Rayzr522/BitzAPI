@@ -51,9 +51,9 @@ public abstract class BitzPlugin extends JavaPlugin {
 
 	}
 
-	public abstract void onLoad();
+	public abstract void onPluginLoad();
 
-	public abstract void onUnload();
+	public abstract void onPluginUnload();
 
 	public abstract void registerCommands();
 

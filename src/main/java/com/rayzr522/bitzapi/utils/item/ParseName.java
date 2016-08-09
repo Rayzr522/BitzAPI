@@ -1,3 +1,4 @@
+
 package com.rayzr522.bitzapi.utils.item;
 
 import java.util.Arrays;
@@ -13,28 +14,26 @@ import com.rayzr522.bitzapi.utils.TextUtils;
  */
 public class ParseName extends ParseCommand {
 
-    private List<String> descriptors = Arrays.asList("named", "with name", "name");
+	private List<String> descriptors = Arrays.asList("named", "with name", "name");
 
-    public List<String> getDescriptors() {
-        return descriptors;
-    }
+	public List<String> getDescriptors() {
+		return descriptors;
+	}
 
-    public ItemStack apply(ItemStack base, String args) {
+	public ItemStack apply(ItemStack base, String args) {
 
-        if (args.length() <= 0) {
-            return base;
-        }
+		if (args.length() <= 0) { return base; }
 
-        String name = TextUtils.colorize(args);
+		String name = TextUtils.colorize(args);
 
-        ItemMeta meta = base.getItemMeta();
+		ItemMeta meta = base.getItemMeta();
 
-        meta.setDisplayName(name);
+		meta.setDisplayName(name);
 
-        base.setItemMeta(meta);
+		base.setItemMeta(meta);
 
-        return base;
+		return base;
 
-    }
+	}
 
 }

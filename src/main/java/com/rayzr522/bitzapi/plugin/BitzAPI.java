@@ -53,7 +53,7 @@ public class BitzAPI extends BitzPlugin {
 	}
 
 	@Override
-	public void onLoad() {
+	public void onPluginLoad() {
 
 		instance = this;
 
@@ -66,7 +66,7 @@ public class BitzAPI extends BitzPlugin {
 	}
 
 	@Override
-	public void onUnload() {
+	public void onPluginUnload() {
 
 		super.onDisable();
 
