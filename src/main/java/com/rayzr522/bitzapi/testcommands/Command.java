@@ -17,14 +17,15 @@ import com.rayzr522.bitzapi.utils.data.ArrayUtils;
  */
 public class Command implements CommandExecutor {
 
-	private String					name;
-	private Map<String, String>		msgs	= new HashMap<String, String>();
-	private Map<String, Command>	subs	= new HashMap<String, Command>();
-	private PluginCommand			command;
-	private CommandExecutor			commandExecutor;
-	private String					regex;
-	private String					desc;
-	private String					usage;
+	private String						name;
+	private static Map<String, String>	globalMsgs	= new HashMap<String, String>();
+	private Map<String, String>			msgs		= new HashMap<String, String>();
+	private Map<String, Command>		subs		= new HashMap<String, Command>();
+	private PluginCommand				command;
+	private CommandExecutor				commandExecutor;
+	private String						regex;
+	private String						desc;
+	private String						usage;
 
 	/**
 	 * @param name
@@ -123,6 +124,10 @@ public class Command implements CommandExecutor {
 		msgs.put(keyFormat(key), msg);
 	}
 
+	public static void putGlobalMessage(String key, String msg) {
+		globalMsgs.put(keyFormat(key), msg);
+	}
+
 	public Map<String, String> getMessageMap() {
 		return msgs;
 	}
@@ -140,7 +145,7 @@ public class Command implements CommandExecutor {
 	 * @param text
 	 * @return the text formatted in a consistent way
 	 */
-	public String keyFormat(String text) {
+	public static String keyFormat(String text) {
 
 		return text.toUpperCase().replaceAll(" ", "_");
 
