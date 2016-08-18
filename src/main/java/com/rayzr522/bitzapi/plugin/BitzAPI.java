@@ -12,6 +12,7 @@ import com.rayzr522.bitzapi.commands.bitz.BitzCommandSet;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandShow;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandTools;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandVersion;
+import com.rayzr522.bitzapi.utils.data.PlayerNames;
 
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -57,6 +58,8 @@ public class BitzAPI extends BitzPlugin {
 
 		instance = this;
 
+		PlayerNames.init(this);
+
 		setupPermissions();
 		setupChat();
 		setupEconomy();
@@ -68,10 +71,9 @@ public class BitzAPI extends BitzPlugin {
 	@Override
 	public void onPluginUnload() {
 
-		super.onDisable();
-
 	}
 
+	@Override
 	public void registerCommands() {
 
 		// Version
