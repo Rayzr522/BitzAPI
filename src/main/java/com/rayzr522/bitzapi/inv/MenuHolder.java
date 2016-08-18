@@ -6,12 +6,12 @@ import org.bukkit.inventory.InventoryHolder;
 
 import com.rayzr522.bitzapi.BitzPlugin;
 
-public class BitzHolder implements InventoryHolder {
+public class MenuHolder implements InventoryHolder {
 
 	private BitzPlugin	plugin;
 	private Inventory	inv;
 
-	public BitzHolder(BitzPlugin plugin, Inventory inv) {
+	public MenuHolder(BitzPlugin plugin, Inventory inv) {
 
 		this.plugin = plugin;
 		this.inv = inv;

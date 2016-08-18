@@ -51,7 +51,7 @@ public class BitzCommandCreateInv implements BitzCommand {
 
 		} else {
 
-			inventory = MenuManager.createInventory(plugin, player, 6, name, UUID.randomUUID().hashCode());
+			inventory = MenuManager.createMenu(plugin, player, 6, name, UUID.randomUUID().hashCode());
 
 		}
 

@@ -34,12 +34,12 @@ public class MenuManager {
 
 	}
 
-	public static Inventory createInventory(BitzPlugin plugin, Player sender, int rows, String title) {
-		return Bukkit.createInventory(new BitzHolder(plugin, Bukkit.createInventory(sender, MathUtils.clamp(rows, 1, 6) * 9, TextUtils.colorize(title))), MathUtils.clamp(rows, 1, 6) * 9, TextUtils.colorize(title));
+	public static Inventory createMenu(BitzPlugin plugin, Player sender, int rows, String title) {
+		return Bukkit.createInventory(new MenuHolder(plugin, Bukkit.createInventory(sender, MathUtils.clamp(rows, 1, 6) * 9, TextUtils.colorize(title))), MathUtils.clamp(rows, 1, 6) * 9, TextUtils.colorize(title));
 	}
 
-	public static Inventory createInventory(BitzPlugin plugin, Player sender, int rows, String title, int id) {
-		Inventory inventory = createInventory(plugin, sender, rows, title);
+	public static Inventory createMenu(BitzPlugin plugin, Player sender, int rows, String title, int id) {
+		Inventory inventory = createMenu(plugin, sender, rows, title);
 		menus.put(inventory.hashCode(), id);
 		return inventory;
 	}
@@ -70,7 +70,7 @@ public class MenuManager {
 			id = UUID.randomUUID().hashCode();
 		}
 
-		Inventory output = createInventory(plugin, sender, rows, title, id);
+		Inventory output = createMenu(plugin, sender, rows, title, id);
 
 		if (base.isConfigurationSection("items")) {
 
