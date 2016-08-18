@@ -11,7 +11,7 @@ import org.bukkit.inventory.Inventory;
 import com.rayzr522.bitzapi.BitzPlugin;
 import com.rayzr522.bitzapi.commands.BitzCommand;
 import com.rayzr522.bitzapi.commands.CommandInfo;
-import com.rayzr522.bitzapi.inv.InvUtils;
+import com.rayzr522.bitzapi.inv.MenuManager;
 import com.rayzr522.bitzapi.message.BitzMessages;
 import com.rayzr522.bitzapi.utils.CommandUtils;
 import com.rayzr522.bitzapi.utils.ConfigUtils;
@@ -47,11 +47,11 @@ public class BitzCommandCreateInv implements BitzCommand {
 
 		if (plugin.configUtils.getSection("createdInvs").isConfigurationSection(ConfigUtils.toConfigPath(name))) {
 
-			inventory = InvUtils.createInventory(player, plugin, plugin.configUtils.getSection("createdInvs." + ConfigUtils.toConfigPath(name)));
+			inventory = MenuManager.createMenu(player, plugin, plugin.configUtils.getSection("createdInvs." + ConfigUtils.toConfigPath(name)));
 
 		} else {
 
-			inventory = InvUtils.createInventory(plugin, player, 6, name, UUID.randomUUID().hashCode());
+			inventory = MenuManager.createInventory(plugin, player, 6, name, UUID.randomUUID().hashCode());
 
 		}
 

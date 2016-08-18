@@ -24,13 +24,13 @@ import com.rayzr522.bitzapi.utils.TextUtils;
 import com.rayzr522.bitzapi.utils.data.ListUtils;
 import com.rayzr522.bitzapi.utils.item.ItemUtils;
 
-public class InvUtils {
+public class MenuManager {
 
-	public static HashMap<Integer, Integer> bitzInventories = new HashMap<Integer, Integer>();
+	public static HashMap<Integer, Integer> menus = new HashMap<Integer, Integer>();
 
-	public static boolean isBitzInv(Inventory inventory) {
+	public static boolean isMenu(Inventory inventory) {
 
-		return bitzInventories.containsKey(inventory.hashCode());
+		return menus.containsKey(inventory.hashCode());
 
 	}
 
@@ -40,11 +40,11 @@ public class InvUtils {
 
 	public static Inventory createInventory(BitzPlugin plugin, Player sender, int rows, String title, int id) {
 		Inventory inventory = createInventory(plugin, sender, rows, title);
-		bitzInventories.put(inventory.hashCode(), id);
+		menus.put(inventory.hashCode(), id);
 		return inventory;
 	}
 
-	public static Inventory createInventory(Player sender, BitzPlugin plugin, ConfigurationSection base) {
+	public static Inventory createMenu(Player sender, BitzPlugin plugin, ConfigurationSection base) {
 
 		if (!isInvOwnedBy(base, plugin)) {
 

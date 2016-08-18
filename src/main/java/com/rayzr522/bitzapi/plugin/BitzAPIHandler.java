@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.rayzr522.bitzapi.BitzHandler;
 import com.rayzr522.bitzapi.commands.bitz.BitzCommandCreateInv;
-import com.rayzr522.bitzapi.inv.InvUtils;
+import com.rayzr522.bitzapi.inv.MenuManager;
 import com.rayzr522.bitzapi.utils.data.BitzData;
 import com.rayzr522.bitzapi.utils.world.BitzTools;
 import com.rayzr522.bitzapi.utils.world.BitzTools.ToolType;
@@ -172,7 +172,7 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 
-		if (!InvUtils.isBitzInv(e.getInventory())) { return; }
+		if (!MenuManager.isMenu(e.getInventory())) { return; }
 
 		if (!BitzCommandCreateInv.isCreationInv(e.getInventory())) {
 			e.setCancelled(true);
@@ -184,7 +184,7 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 
-		if (!InvUtils.isBitzInv(e.getInventory())) { return; }
+		if (!MenuManager.isMenu(e.getInventory())) { return; }
 
 		if (BitzCommandCreateInv.isCreationInv(e.getInventory())) {
 
@@ -193,7 +193,7 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 			if (inventory != null) {
 
 				ConfigurationSection base = plugin.configUtils.getSection("createdInvs");
-				InvUtils.createConfigSection(inventory, base, plugin);
+				MenuManager.createConfigSection(inventory, base, plugin);
 				plugin.configUtils.saveConfig();
 
 			}

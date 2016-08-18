@@ -51,7 +51,7 @@ public class Region implements Serializable<Region> {
 		Vector lMax = max;
 
 		this.min = Vector.getMinimum(lMin, lMax);
-		this.min = Vector.getMaximum(lMin, lMax);
+		this.max = Vector.getMaximum(lMin, lMax);
 
 	}
 

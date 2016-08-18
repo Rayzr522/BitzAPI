@@ -8,7 +8,7 @@ import com.rayzr522.bitzapi.utils.TextUtils;
 
 public class ListUtils {
 
-	public static String concatArray(List<String> list, String filler) {
+	public static String concatList(List<String> list, String filler) {
 
 		if (list.size() == 0) {
 
