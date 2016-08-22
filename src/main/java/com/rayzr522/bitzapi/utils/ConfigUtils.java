@@ -28,7 +28,7 @@ public class ConfigUtils {
 
 	}
 
-	public void saveRegion(ConfigurationSection section, Region region, String type) {
+	public static void saveRegion(ConfigurationSection section, Region region, String type) {
 
 		ConfigurationSection regionSection = getSection(section, type + "Region");
 
@@ -45,7 +45,7 @@ public class ConfigUtils {
 
 	}
 
-	public Region parseRegion(ConfigurationSection section, String type) {
+	public static Region parseRegion(ConfigurationSection section, String type) {
 
 		if (!section.contains(type + "Region")) {
 
@@ -79,7 +79,7 @@ public class ConfigUtils {
 
 	}
 
-	public void saveLocation(ConfigurationSection section, Location location, String type) {
+	public static void saveLocation(ConfigurationSection section, Location location, String type) {
 
 		if (location == null) {
 
@@ -98,7 +98,7 @@ public class ConfigUtils {
 
 	}
 
-	public Location parseLocation(ConfigurationSection section, String type) {
+	public static Location parseLocation(ConfigurationSection section, String type) {
 
 		if (!section.contains(type + "Location")) {
 
@@ -125,13 +125,13 @@ public class ConfigUtils {
 
 	}
 
-	public void saveBoolean(ConfigurationSection section, boolean bool, String name) {
+	public static void saveBoolean(ConfigurationSection section, boolean bool, String name) {
 
 		section.set(name, bool);
 
 	}
 
-	public boolean parseBoolean(ConfigurationSection section, String name) {
+	public static boolean parseBoolean(ConfigurationSection section, String name) {
 
 		if (section.contains(name)) {
 
@@ -143,13 +143,13 @@ public class ConfigUtils {
 
 	}
 
-	public void saveWorld(ConfigurationSection section, World world, String name) {
+	public static void saveWorld(ConfigurationSection section, World world, String name) {
 
 		section.set(name + "World", world.getUID().toString());
 
 	}
 
-	public World parseWorld(ConfigurationSection section, String name) {
+	public static World parseWorld(ConfigurationSection section, String name) {
 
 		if (!section.contains(name + "World")) {
 
@@ -173,7 +173,7 @@ public class ConfigUtils {
 
 	}
 
-	public ConfigurationSection getSection(ConfigurationSection section, String path) {
+	public static ConfigurationSection getSection(ConfigurationSection section, String path) {
 
 		if (!section.contains(path)) {
 
@@ -197,7 +197,7 @@ public class ConfigUtils {
 
 	}
 
-	public boolean sectionExists(ConfigurationSection section, String string) {
+	public static boolean sectionExists(ConfigurationSection section, String string) {
 		return section.isConfigurationSection(string);
 	}
 

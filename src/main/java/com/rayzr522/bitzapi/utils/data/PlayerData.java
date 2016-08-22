@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import com.rayzr522.bitzapi.config.Serializable;
+import com.rayzr522.bitzapi.config.DEPRECATED_Serializable;
 
-public class PlayerData implements Serializable<PlayerData> {
+public class PlayerData implements DEPRECATED_Serializable<PlayerData> {
 
 	private List<String>				keys	= Arrays.asList("player", "canFly", "isFlying", "health", "exp", "level", "food", "inv", "armor", "gameMode", "potionEffects");
 

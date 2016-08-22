@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.rayzr522.bitzapi.commands.CommandHandler;
+import com.rayzr522.bitzapi.config.ConfigManager;
 import com.rayzr522.bitzapi.message.BitzLogger;
 import com.rayzr522.bitzapi.message.Messenger;
 import com.rayzr522.bitzapi.plugin.BitzAPI;
@@ -17,6 +18,7 @@ public abstract class BitzPlugin extends JavaPlugin {
 	public BitzLogger			logger;
 	public Messenger			messenger;
 	public ConfigUtils			configUtils;
+	public ConfigManager		configManager;
 	protected CommandHandler	commandHandler;
 
 	/**
@@ -32,12 +34,15 @@ public abstract class BitzPlugin extends JavaPlugin {
 	 */
 	public final void onEnable() {
 
-		this.logger = new BitzLogger(this);
+		this.logger = new BitzLogger(this, getName());
 		this.messenger = new Messenger(this);
 		this.configUtils = new ConfigUtils(this);
+		this.configManager = new ConfigManager(this);
 		this.commandHandler = new CommandHandler(this, false);
 
 		commandHandler.autoSetup();
+
+		onPluginLoad();
 
 		registerCommands();
 
@@ -46,6 +51,8 @@ public abstract class BitzPlugin extends JavaPlugin {
 	}
 
 	public final void onDisable() {
+
+		onPluginUnload();
 
 		logger.unloaded();
 

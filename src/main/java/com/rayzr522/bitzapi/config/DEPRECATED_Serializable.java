@@ -3,7 +3,8 @@ package com.rayzr522.bitzapi.config;
 
 import java.util.Map;
 
-public interface Serializable<T> {
+@Deprecated
+public interface DEPRECATED_Serializable<T> {
 
 	public Map<String, Object> serialize();
 

@@ -10,12 +10,12 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
-import com.rayzr522.bitzapi.config.Serializable;
+import com.rayzr522.bitzapi.config.DEPRECATED_Serializable;
 import com.rayzr522.bitzapi.utils.data.Deserializer;
 import com.rayzr522.bitzapi.utils.data.MapUtils;
 import com.rayzr522.bitzapi.utils.data.Serializer;
 
-public class Region implements Serializable<Region> {
+public class Region implements DEPRECATED_Serializable<Region> {
 
 	private Vector	min;
 	private Vector	max;
