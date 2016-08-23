@@ -186,6 +186,46 @@ public class ConfigManager {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	public static Object deserialize(Class<? extends Object> clazz, Map<String, Object> data) {
+
+		if (!Serializable.class.isAssignableFrom(clazz)) {
+			System.err.println("Attempted to deserialize to a non-serializable class!!");
+			return null;
+		}
+
+		Object o;
+		try {
+			o = clazz.newInstance();
+		} catch (Exception e) {
+			System.err.println("Could not instantiate an object of type '" + clazz.getCanonicalName() + "'");
+			System.err.println("Classes implementing Serializable should not have a constructor, instead they should use onDeserialized.");
+			e.printStackTrace();
+			return null;
+		}
+
+		List<Field> fields = Reflection.getFieldsWithAnnotation(o.getClass(), Serialized.class);;
+
+		for (Field field : fields) {
+			if (!data.containsKey(field.getName())) {
+				continue;
+			}
+			if (Reflection.hasInterface(Serializable.class, field.getType())) {
+				if (!(data.get(field.getName()) instanceof Map<?, ?>)) {
+					System.err.println("Expected a Map for field '" + field.getName() + "' in '" + clazz.getCanonicalName() + "', however an instance of '" + data.get(field.getName()).getClass().getCanonicalName() + "' was found!");
+					return null;
+				}
+				Reflection.setValue(field, o, deserialize(field.getType(), (Map<String, Object>) data.get(field.getName())));
+			} else {
+				Reflection.setValue(field, o, data.get(field.getName()));
+			}
+
+		}
+
+		return o;
+
+	}
+
 	public File getFile(String path) {
 		return new File(dataFolder + File.separator + path);
 	}
