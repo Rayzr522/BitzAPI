@@ -38,7 +38,14 @@ public class ReflectedField implements Printable<ReflectedField> {
 
 	@Override
 	public String toString(){
-		return f.get(rc.getObject()).toString();
+		try {
+			return f.get(rc.getObject()).toString();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
