@@ -198,4 +198,8 @@ public class Reflection {
 
 	}
 
+	public static boolean isVersion(String string) {
+		return VERSION.startsWith("v1_" + string + "_");
+	}
+
 }

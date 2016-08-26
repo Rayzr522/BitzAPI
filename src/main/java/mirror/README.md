@@ -31,3 +31,6 @@ String s = "Hello World";
 $(s).setField("hash", -5);
 int i = $(s).<Integer>getField("hash");
 ```
+
+## Side note (by Rayzr)
+I have modified this library to my own likings, adding the player wrapper, packet builder, and more. 
