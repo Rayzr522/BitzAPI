@@ -60,6 +60,8 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 	private TinyProtocol		protocol;
 
+	private List<UUID>			playersChanging		= ListUtils.empty();
+
 	public BitzAPIHandler(BitzAPI plugin) {
 		super(plugin);
 
@@ -73,7 +75,7 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 				// the
 				// data sent to the client, but ALSO from the server data.
 				// Weird, I know o.O
-				if (reciever != null && reciever.getGameMode() == GameMode.CREATIVE) { return super.onPacketOutAsync(reciever, channel, packet); }
+				if (reciever != null && (reciever.getGameMode() == GameMode.CREATIVE || playersChanging.contains(reciever.getUniqueId()))) { return super.onPacketOutAsync(reciever, channel, packet); }
 
 				if (packetSetSlot.isInstance(packet)) {
 
@@ -158,18 +160,21 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 			ItemStack[] items = e.getPlayer().getInventory().getContents();
 
+			playersChanging.add(e.getPlayer().getUniqueId());
+
 			for (int i = 0; i < items.length; i++) {
 
 				if (!LoreData.hasData(items[i])) {
 					continue;
 				}
 
-				System.out.println("Slot: " + i);
 				Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", i).set("c", toNMS.invoke(null, items[i])).create();
 
 				player.sendPacket(packet);
 
 			}
+
+			playersChanging.remove(e.getPlayer().getUniqueId());
 
 		}
 
