@@ -5,6 +5,7 @@ import static mirror.Mirror.$;
 
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.GameMode;
@@ -35,6 +36,7 @@ import com.rayzr522.bitzapi.inv.MenuManager;
 import com.rayzr522.bitzapi.utils.data.BitzData;
 import com.rayzr522.bitzapi.utils.data.ListUtils;
 import com.rayzr522.bitzapi.utils.data.LoreData;
+import com.rayzr522.bitzapi.utils.data.MapUtils;
 import com.rayzr522.bitzapi.utils.world.BitzTools;
 import com.rayzr522.bitzapi.utils.world.BitzTools.ToolType;
 import com.rayzr522.bitzapi.utils.world.LocUtils;
@@ -60,7 +62,7 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 	private TinyProtocol		protocol;
 
-	private List<UUID>			playersChanging		= ListUtils.empty();
+	private Map<UUID, GameMode>	realGM				= MapUtils.empty();
 
 	public BitzAPIHandler(BitzAPI plugin) {
 		super(plugin);
@@ -75,19 +77,25 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 				// the
 				// data sent to the client, but ALSO from the server data.
 				// Weird, I know o.O
-				if (reciever != null && (reciever.getGameMode() == GameMode.CREATIVE || playersChanging.contains(reciever.getUniqueId()))) { return super.onPacketOutAsync(reciever, channel, packet); }
+
+				if (!(packetSetSlot.isInstance(packet) || packetWindowItems.isInstance(packet))) { return super.onPacketOutAsync(reciever, channel, packet); }
+
+				if (reciever != null) {
+
+					if (realGM.get(reciever.getUniqueId()) == GameMode.CREATIVE) {
+
+					return super.onPacketOutAsync(reciever, channel, packet);
+
+					}
+				}
 
 				if (packetSetSlot.isInstance(packet)) {
-
-					System.out.println("PacketSetSlot");
 
 					Object filtered = filterLore(itemField.get(packet));
 
 					itemField.set(packet, filtered);
 
 				} else if (packetWindowItems.isInstance(packet)) {
-
-					System.out.println("PacketWindowItems");
 
 					Object filtered = filterLore((Object[]) itemsField.get(packet));
 
@@ -132,11 +140,7 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 		}
 
 		ItemStack is = (ItemStack) toBukkit.invoke(null, item);
-		System.out.println(is.toString());
-		System.out.println("Clearing item lore...");
 		LoreData.clearData(is);
-		System.out.println(is.toString());
-		System.out.println("Lore cleared!");
 
 		return toNMS.invoke(null, is);
 
@@ -145,8 +149,12 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent e) {
 
-		if (!protocol.hasInjected(e.getPlayer())) {
-			protocol.injectPlayer(e.getPlayer());
+		Player p = e.getPlayer();
+
+		realGM.put(p.getUniqueId(), p.getGameMode());
+
+		if (!protocol.hasInjected(p)) {
+			protocol.injectPlayer(p);
 		}
 
 	}
@@ -154,13 +162,13 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onGamemodeChange(PlayerGameModeChangeEvent e) {
 
+		realGM.put(e.getPlayer().getUniqueId(), e.getNewGameMode());
+
 		if (e.getNewGameMode() == GameMode.CREATIVE) {
 
 			PlayerWrapper player = $(e.getPlayer());
 
 			ItemStack[] items = e.getPlayer().getInventory().getContents();
-
-			playersChanging.add(e.getPlayer().getUniqueId());
 
 			for (int i = 0; i < items.length; i++) {
 
@@ -174,7 +182,23 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 			}
 
-			playersChanging.remove(e.getPlayer().getUniqueId());
+		} else if (e.getPlayer().getGameMode() == GameMode.CREATIVE && e.getNewGameMode() != GameMode.CREATIVE) {
+
+			PlayerWrapper player = $(e.getPlayer());
+
+			ItemStack[] items = e.getPlayer().getInventory().getContents();
+
+			for (int i = 0; i < items.length; i++) {
+
+				if (!LoreData.hasData(items[i])) {
+					continue;
+				}
+
+				Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", i).set("c", toNMS.invoke(null, items[i])).create();
+
+				player.sendPacket(packet);
+
+			}
 
 		}
 
