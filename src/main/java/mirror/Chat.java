@@ -45,8 +45,6 @@ public class Chat {
 		json = json.replace("''", "\\\"");
 		json = json.replace("'", "\"");
 
-		System.out.println(json);
-
 		try {
 			return stringToChat.invoke(null, json);
 		} catch (Exception e) {

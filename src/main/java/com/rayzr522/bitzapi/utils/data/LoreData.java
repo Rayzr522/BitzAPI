@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.rayzr522.bitzapi.utils.item.ItemUtils;
@@ -43,19 +44,19 @@ public class LoreData {
 		List<String> lore = ItemUtils.getLore(item);
 		if (lore == null) { return; }
 
+		List<String> newLore = ListUtils.empty();
+
 		for (String str : lore) {
 
 			if (!isData(str)) {
 
-				continue;
+				newLore.add(str);
 
 			}
 
-			lore.remove(str);
-
 		}
 
-		ItemUtils.setLore(item, lore);
+		ItemUtils.setLore(item, newLore);
 
 	}
 
@@ -227,6 +228,26 @@ public class LoreData {
 
 		data.put(key, value);
 
+	}
+
+	public boolean hasKey(String key) {
+		return data.containsKey(key);
+	}
+
+	public void debug(Player p) {
+
+		p.sendMessage("LoreData DEBUG");
+
+		for (Entry<String, Object> entry : data.entrySet()) {
+
+			p.sendMessage(entry.getKey() + ": " + entry.getValue().toString());
+
+		}
+
+	}
+
+	public static boolean hasData(ItemStack itemStack) {
+		return new LoreData(itemStack).data.size() > 0;
 	}
 
 }
