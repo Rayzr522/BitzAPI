@@ -1,6 +1,8 @@
 
 package com.rayzr522.bitzapi.plugin;
 
+import static mirror.Mirror.$;
+
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.UUID;
@@ -33,14 +35,12 @@ import com.rayzr522.bitzapi.inv.MenuManager;
 import com.rayzr522.bitzapi.utils.data.BitzData;
 import com.rayzr522.bitzapi.utils.data.ListUtils;
 import com.rayzr522.bitzapi.utils.data.LoreData;
-import com.rayzr522.bitzapi.utils.item.ItemUtils;
 import com.rayzr522.bitzapi.utils.world.BitzTools;
 import com.rayzr522.bitzapi.utils.world.BitzTools.ToolType;
 import com.rayzr522.bitzapi.utils.world.LocUtils;
 import com.rayzr522.bitzapi.world.PartialRegion;
 
 import io.netty.channel.Channel;
-import static mirror.Mirror.$;
 import mirror.PacketBuilder;
 import mirror.PlayerWrapper;
 
@@ -149,16 +149,6 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 	}
 
-	private static int DataSlotToNetworkSlot(int index) {
-		if (index <= 8) index += 36;
-		else if (index == 100) index = 8;
-		else if (index == 101) index = 7;
-		else if (index == 102) index = 6;
-		else if (index == 103) index = 5;
-		else if (index >= 80 && index <= 83) index -= 79;
-		return index;
-	}
-
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onGamemodeChange(PlayerGameModeChangeEvent e) {
 
@@ -166,24 +156,20 @@ public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
 			PlayerWrapper player = $(e.getPlayer());
 
-//			ItemStack[] items = e.getPlayer().getInventory().getContents();
+			ItemStack[] items = e.getPlayer().getInventory().getContents();
 
-			Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", 8).set("c", toNMS.invoke(null, ItemUtils.makeItem("diamond, named &bYou are now in CREATIVE!"))).create();
+			for (int i = 0; i < items.length; i++) {
 
-			player.sendPacket(packet);
-			
-//			for (int i = 0; i < items.length; i++) {
-//
-//				if (!LoreData.hasData(items[i])) {
-//					continue;
-//				}
-//
-//				System.out.println("Slot: " + DataSlotToNetworkSlot(i));
-//				Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", DataSlotToNetworkSlot(i)).set("c", toNMS.invoke(null, items[i])).create();
-//
-//				player.sendPacket(packet);
-//
-//			}
+				if (!LoreData.hasData(items[i])) {
+					continue;
+				}
+
+				System.out.println("Slot: " + i);
+				Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", i).set("c", toNMS.invoke(null, items[i])).create();
+
+				player.sendPacket(packet);
+
+			}
 
 		}
 
