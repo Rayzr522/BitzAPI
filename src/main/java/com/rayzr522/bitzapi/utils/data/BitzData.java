@@ -13,122 +13,128 @@ import com.rayzr522.bitzapi.world.PartialRegion;
 
 public class BitzData {
 
-	public static final HashMap<UUID, PartialRegion>	regionSelections		= new HashMap<UUID, PartialRegion>();
-	public static final HashMap<UUID, Location>			locationSelections		= new HashMap<UUID, Location>();
-	public static final HashMap<UUID, List<Location>>	locationListSelections	= new HashMap<UUID, List<Location>>();
+    public static final HashMap<UUID, PartialRegion>  regionSelections       = new HashMap<UUID, PartialRegion>();
+    public static final HashMap<UUID, Location>       locationSelections     = new HashMap<UUID, Location>();
+    public static final HashMap<UUID, List<Location>> locationListSelections = new HashMap<UUID, List<Location>>();
 
-	/**
-	 * Gets the region selection for {@code playerId}
-	 * @param playerId
-	 * @return
-	 */
-	public static PartialRegion getRegionSelection(UUID playerId) {
+    /**
+     * Gets the region selection for {@code playerId}
+     * 
+     * @param playerId
+     * @return
+     */
+    public static PartialRegion getRegionSelection(UUID playerId) {
 
-		if (!regionSelections.containsKey(playerId) || regionSelections.get(playerId) == null) {
+        if (!regionSelections.containsKey(playerId) || regionSelections.get(playerId) == null) {
 
-			regionSelections.put(playerId, new PartialRegion());
+            regionSelections.put(playerId, new PartialRegion());
 
-		}
+        }
 
-		return regionSelections.get(playerId);
+        return regionSelections.get(playerId);
 
-	}
+    }
 
-	/**
-	 * Gets the location selection for {@code playerId}
-	 * @param playerId
-	 * @return
-	 */
-	public static Location getLocationSelection(UUID playerId) {
+    /**
+     * Gets the location selection for {@code playerId}
+     * 
+     * @param playerId
+     * @return
+     */
+    public static Location getLocationSelection(UUID playerId) {
 
-		return locationSelections.get(playerId);
+        return locationSelections.get(playerId);
 
-	}
+    }
 
-	/**
-	 * Gets the location list selection for {@code playerId}
-	 * @param playerId
-	 * @return
-	 */
-	public static List<Location> getLocationListSelection(UUID playerId) {
+    /**
+     * Gets the location list selection for {@code playerId}
+     * 
+     * @param playerId
+     * @return
+     */
+    public static List<Location> getLocationListSelection(UUID playerId) {
 
-		if (!locationListSelections.containsKey(playerId) || locationListSelections.get(playerId) == null) {
+        if (!locationListSelections.containsKey(playerId) || locationListSelections.get(playerId) == null) {
 
-			locationListSelections.put(playerId, new ArrayList<Location>());
+            locationListSelections.put(playerId, new ArrayList<Location>());
 
-		}
+        }
 
-		return locationListSelections.get(playerId);
+        return locationListSelections.get(playerId);
 
-	}
+    }
 
-	/**
-	 * Gets the region selection for {@code player}
-	 * @param playerId
-	 * @return
-	 */
-	public static PartialRegion getRegionSelection(Player player) {
+    /**
+     * Gets the region selection for {@code player}
+     * 
+     * @param playerId
+     * @return
+     */
+    public static PartialRegion getRegionSelection(Player player) {
 
-		return getRegionSelection(player.getUniqueId());
+        return getRegionSelection(player.getUniqueId());
 
-	}
+    }
 
-	/**
-	 * Gets the location selection for {@code player}
-	 * @param playerId
-	 * @return
-	 */
-	public static Location getLocationSelection(Player player) {
+    /**
+     * Gets the location selection for {@code player}
+     * 
+     * @param playerId
+     * @return
+     */
+    public static Location getLocationSelection(Player player) {
 
-		return getLocationSelection(player.getUniqueId());
+        return getLocationSelection(player.getUniqueId());
 
-	}
+    }
 
-	/**
-	 * Gets the location list selection for {@code player}
-	 * @param playerId
-	 * @return
-	 */
-	public static List<Location> getLocationListSelection(Player player) {
+    /**
+     * Gets the location list selection for {@code player}
+     * 
+     * @param playerId
+     * @return
+     */
+    public static List<Location> getLocationListSelection(Player player) {
 
-		return getLocationListSelection(player.getUniqueId());
+        return getLocationListSelection(player.getUniqueId());
 
-	}
+    }
 
-	public static void setRegionSelection(UUID playerId, PartialRegion region) {
+    public static void setRegionSelection(UUID playerId, PartialRegion region) {
 
-		regionSelections.put(playerId, region);
+        regionSelections.put(playerId, region);
 
-	}
+    }
 
-	public static void setLocationSelection(UUID playerId, Location location) {
+    public static void setLocationSelection(UUID playerId, Location location) {
 
-		locationSelections.put(playerId, location);
+        locationSelections.put(playerId, location);
 
-	}
+    }
 
-	public static void setLocationListSelection(UUID playerId, List<Location> locationList) {
+    public static void setLocationListSelection(UUID playerId, List<Location> locationList) {
 
-		locationListSelections.put(playerId, locationList);
+        locationListSelections.put(playerId, locationList);
 
-	}
+    }
 
-	public static void setRegionSelection(Player player, PartialRegion region) {
+    public static void setRegionSelection(Player player, PartialRegion region) {
 
-		setRegionSelection(player.getUniqueId(), region);
+        setRegionSelection(player.getUniqueId(), region);
 
-	}
+    }
 
-	public static void setLocationSelection(Player player, Location location) {
+    public static void setLocationSelection(Player player, Location location) {
 
-		setLocationSelection(player.getUniqueId(), location);
+        setLocationSelection(player.getUniqueId(), location);
 
-	}
+    }
 
-	public static void setLocationListSelection(Player player, List<Location> locationList) {
+    public static void setLocationListSelection(Player player, List<Location> locationList) {
 
-		setLocationListSelection(player.getUniqueId(), locationList);
+        setLocationListSelection(player.getUniqueId(), locationList);
 
-	}
+    }
 
 }

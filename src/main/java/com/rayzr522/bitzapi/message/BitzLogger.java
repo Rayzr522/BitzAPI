@@ -8,52 +8,52 @@ import org.bukkit.plugin.Plugin;
 
 public class BitzLogger {
 
-	private Logger	logger;
-	private String	name;
-	private String	ver;
+    private Logger logger;
+    private String name;
+    private String ver;
 
-	public BitzLogger(Plugin plugin) {
+    public BitzLogger(Plugin plugin) {
 
-		this(plugin, "BitzLogger");
+        this(plugin, "BitzLogger");
 
-	}
+    }
 
-public BitzLogger(Plugin plugin, String name) {
-		
-		this.logger = plugin.getLogger();
-		this.name = name;
-		this.ver = plugin.getDescription().getVersion();
-		
-	}
+    public BitzLogger(Plugin plugin, String name) {
 
-	public void info(String msg) {
+        this.logger = plugin.getLogger();
+        this.name = name;
+        this.ver = plugin.getDescription().getVersion();
 
-		logger.log(Level.INFO, "[" + name + "] " + msg);
+    }
 
-	}
+    public void info(String msg) {
 
-	public void warning(String msg) {
+        logger.log(Level.INFO, "[" + name + "] " + msg);
 
-		logger.log(Level.WARNING, "[" + name + "] [WARNING] " + msg);
+    }
 
-	}
+    public void warning(String msg) {
 
-	public void error(String msg) {
+        logger.log(Level.WARNING, "[" + name + "] [WARNING] " + msg);
 
-		logger.log(Level.SEVERE, "[" + name + "] [ERROR - SEVERE] " + msg);
+    }
 
-	}
+    public void error(String msg) {
 
-	public void loaded() {
+        logger.log(Level.SEVERE, "[" + name + "] [ERROR - SEVERE] " + msg);
 
-		info(name + " v" + ver + " has been loaded!");
+    }
 
-	}
+    public void loaded() {
 
-	public void unloaded() {
+        info(name + " v" + ver + " has been loaded!");
 
-		info(name + " v" + ver + " has been unloaded!");
+    }
 
-	}
+    public void unloaded() {
+
+        info(name + " v" + ver + " has been unloaded!");
+
+    }
 
 }

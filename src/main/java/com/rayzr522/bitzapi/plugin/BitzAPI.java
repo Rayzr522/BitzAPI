@@ -21,85 +21,85 @@ import net.milkbowl.vault.permission.Permission;
 
 public class BitzAPI extends BitzPlugin {
 
-	public static BitzAPI		instance;
+    public static BitzAPI    instance;
 
-	public static Permission	permission	= null;
-	public static Economy		economy		= null;
-	public static Chat			chat		= null;
+    public static Permission permission = null;
+    public static Economy    economy    = null;
+    public static Chat       chat       = null;
 
-	private boolean setupPermissions() {
-		RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
-		if (permissionProvider != null) {
-			permission = permissionProvider.getProvider();
-		}
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        if (permissionProvider != null) {
+            permission = permissionProvider.getProvider();
+        }
 
-		return (permission != null);
-	}
+        return (permission != null);
+    }
 
-	private boolean setupChat() {
-		RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
-		if (chatProvider != null) {
-			chat = chatProvider.getProvider();
-		}
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
+        if (chatProvider != null) {
+            chat = chatProvider.getProvider();
+        }
 
-		return (chat != null);
-	}
+        return (chat != null);
+    }
 
-	private boolean setupEconomy() {
-		RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-		if (economyProvider != null) {
-			economy = economyProvider.getProvider();
-		}
+    private boolean setupEconomy() {
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            economy = economyProvider.getProvider();
+        }
 
-		return (economy != null);
-	}
+        return (economy != null);
+    }
 
-	@Override
-	public void onPluginLoad() {
+    @Override
+    public void onPluginLoad() {
 
-		instance = this;
+        instance = this;
 
-		PlayerNames.init(this);
+        PlayerNames.init(this);
 
-		setupPermissions();
-		setupChat();
-		setupEconomy();
+        setupPermissions();
+        setupChat();
+        setupEconomy();
 
-		registerEventHandler(new BitzAPIHandler(this));
+        registerEventHandler(new BitzAPIHandler(this));
 
-		logger.info("NMS package version: " + Reflection.getVersion());
+        logger.info("NMS package version: " + Reflection.getVersion());
 
-	}
+    }
 
-	@Override
-	public void onPluginUnload() {
+    @Override
+    public void onPluginUnload() {
 
-	}
+    }
 
-	@Override
-	public void registerCommands() {
+    @Override
+    public void registerCommands() {
 
-		// Version
-		commandHandler.registerCommand(BitzCommandVersion.class);
+        // Version
+        commandHandler.registerCommand(BitzCommandVersion.class);
 
-		// BitzAPI-tools related commands
-		commandHandler.registerCommand(BitzCommandTools.class);
-		commandHandler.registerCommand(BitzCommandShow.class);
-		commandHandler.registerCommand(BitzCommandSet.class);
-		commandHandler.registerCommand(BitzCommandClearSel.class);
+        // BitzAPI-tools related commands
+        commandHandler.registerCommand(BitzCommandTools.class);
+        commandHandler.registerCommand(BitzCommandShow.class);
+        commandHandler.registerCommand(BitzCommandSet.class);
+        commandHandler.registerCommand(BitzCommandClearSel.class);
 
-		// BitzAPI-inventory system tool
-		commandHandler.registerCommand(BitzCommandCreateInv.class);
+        // BitzAPI-inventory system tool
+        commandHandler.registerCommand(BitzCommandCreateInv.class);
 
-		// Sub CommandHandlers
-		commandHandler.registerCommand(BitzCommandFun.class);
-		commandHandler.registerCommand(BitzCommandItem.class);
+        // Sub CommandHandlers
+        commandHandler.registerCommand(BitzCommandFun.class);
+        commandHandler.registerCommand(BitzCommandItem.class);
 
-	}
+    }
 
-	@Override
-	public String getBitzVersion() {
-		return this.getDescription().getVersion();
-	}
+    @Override
+    public String getBitzVersion() {
+        return this.getDescription().getVersion();
+    }
 
 }

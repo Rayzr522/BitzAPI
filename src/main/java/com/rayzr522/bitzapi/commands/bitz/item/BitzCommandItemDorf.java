@@ -16,29 +16,29 @@ import com.rayzr522.bitzapi.utils.item.ItemUtils;
 @CommandInfo(name = "dorf", usage = "/{command} item dorf", desc = "Dorf an item", pattern = "dorf", perm = "{base}.item.dorf")
 public class BitzCommandItemDorf implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) {
+        if (!CommandUtils.isPlayer(sender)) {
 
-			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
-			return true;
+            plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
+            return true;
 
-		}
+        }
 
-		Player player = (Player) sender;
-		if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
+        Player player = (Player) sender;
+        if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
 
-		return plugin.messenger.playerMessage(player, BitzMessages.NOT_HOLDING_ITEM.msg);
+            return plugin.messenger.playerMessage(player, BitzMessages.NOT_HOLDING_ITEM.msg);
 
-		}
+        }
 
-		ItemStack item = player.getInventory().getItemInMainHand();
+        ItemStack item = player.getInventory().getItemInMainHand();
 
-		String name = TextUtils.colorize("&0&f&0&f&k:::&bDORF&k:::");
+        String name = TextUtils.colorize("&0&f&0&f&k:::&bDORF&k:::");
 
-		ItemUtils.setName(item, name);
+        ItemUtils.setName(item, name);
 
-		return true;
-	}
+        return true;
+    }
 
 }

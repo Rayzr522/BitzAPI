@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface OnFail {
 
-	public FailResponse response();
+    public FailResponse response();
 
 }

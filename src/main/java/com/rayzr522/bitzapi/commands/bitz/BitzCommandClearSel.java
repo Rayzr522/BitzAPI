@@ -18,61 +18,61 @@ import com.rayzr522.bitzapi.world.PartialRegion;
 @CommandInfo(name = "clearsel", usage = "/{command} clearsel [reg:loc:locs]", desc = "Clear the selection of one or all of the Bitz Tools", pattern = "clear(sel)?|cs", perm = "{base}.tools")
 public class BitzCommandClearSel implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
-		if (!CommandUtils.isPlayer(sender)) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+        if (!CommandUtils.isPlayer(sender)) {
 
-			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
-			return true;
+            plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
+            return true;
 
-		}
+        }
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		if (args.length < 1) {
+        if (args.length < 1) {
 
-			BitzData.setRegionSelection(player, new PartialRegion());
-			plugin.messenger.playerInfo(player, "Region selection cleared");
-			BitzData.setLocationSelection(player, null);
-			plugin.messenger.playerInfo(player, "Location selection cleared");
-			BitzData.setLocationListSelection(player, new ArrayList<Location>());
-			plugin.messenger.playerInfo(player, "Location list selection cleared");
+            BitzData.setRegionSelection(player, new PartialRegion());
+            plugin.messenger.playerInfo(player, "Region selection cleared");
+            BitzData.setLocationSelection(player, null);
+            plugin.messenger.playerInfo(player, "Location selection cleared");
+            BitzData.setLocationListSelection(player, new ArrayList<Location>());
+            plugin.messenger.playerInfo(player, "Location list selection cleared");
 
-		} else {
+        } else {
 
-			if (args[0].equals("reg")) {
+            if (args[0].equals("reg")) {
 
-				BitzData.setRegionSelection(player, new PartialRegion());
-				plugin.messenger.playerInfo(player, "Region selection cleared");
+                BitzData.setRegionSelection(player, new PartialRegion());
+                plugin.messenger.playerInfo(player, "Region selection cleared");
 
-			}
+            }
 
-			else
+            else
 
-			if (args[0].equals("loc")) {
+            if (args[0].equals("loc")) {
 
-				BitzData.setLocationSelection(player, null);
-				plugin.messenger.playerInfo(player, "Location selection cleared");
+                BitzData.setLocationSelection(player, null);
+                plugin.messenger.playerInfo(player, "Location selection cleared");
 
-			}
+            }
 
-			else
+            else
 
-			if (args[0].equals("locs")) {
+            if (args[0].equals("locs")) {
 
-				BitzData.setLocationListSelection(player, new ArrayList<Location>());
-				plugin.messenger.playerInfo(player, "Location list selection cleared");
+                BitzData.setLocationListSelection(player, new ArrayList<Location>());
+                plugin.messenger.playerInfo(player, "Location list selection cleared");
 
-			}
+            }
 
-			else {
+            else {
 
-				return false;
+                return false;
 
-			}
+            }
 
-		}
+        }
 
-		return true;
-	}
+        return true;
+    }
 
 }

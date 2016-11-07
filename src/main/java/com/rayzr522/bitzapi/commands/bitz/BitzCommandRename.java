@@ -15,33 +15,33 @@ import com.rayzr522.bitzapi.utils.item.ItemUtils;
 @CommandInfo(name = "rename", usage = "/bitz rename <text>", desc = "Rename your current item", pattern = "rename", perm = "bitzapi.item.rename")
 public class BitzCommandRename implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) {
+        if (!CommandUtils.isPlayer(sender)) {
 
-		return true;
+            return true;
 
-		}
+        }
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		if (args.length < 1) {
+        if (args.length < 1) {
 
-			plugin.messenger.playerMessage(player, BitzMessages.NO_ARG.msg, "text");
-			return false;
+            plugin.messenger.playerMessage(player, BitzMessages.NO_ARG.msg, "text");
+            return false;
 
-		}
+        }
 
-		if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
+        if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
 
-			plugin.messenger.playerInfo(player, "You have to be holding an item");
-			return true;
+            plugin.messenger.playerInfo(player, "You have to be holding an item");
+            return true;
 
-		}
+        }
 
-		ItemUtils.setName(player.getInventory().getItemInMainHand(), ArrayUtils.concatArray(args, " "));
+        ItemUtils.setName(player.getInventory().getItemInMainHand(), ArrayUtils.concatArray(args, " "));
 
-		return true;
-	}
+        return true;
+    }
 
 }

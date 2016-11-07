@@ -23,108 +23,108 @@ import com.rayzr522.bitzapi.world.Region;
 @CommandInfo(name = "show", usage = "/{command} show [reg:loc:locs]", desc = "Show the selections of one or all of the Bitz Tools", pattern = "sh(ow)?", perm = "{base}.tools")
 public class BitzCommandShow implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player)) {
 
-			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
-			return true;
+            plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
+            return true;
 
-		}
+        }
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		if (args.length < 1) {
+        if (args.length < 1) {
 
-			showRegion(player, plugin);
-			showLocation(player, plugin);
-			showLocationList(player, plugin);
+            showRegion(player, plugin);
+            showLocation(player, plugin);
+            showLocationList(player, plugin);
 
-		} else {
+        } else {
 
-			if (args[0].equals("reg")) {
+            if (args[0].equals("reg")) {
 
-				showRegion(player, plugin);
-				plugin.messenger.playerInfo(player, "Showing region");
+                showRegion(player, plugin);
+                plugin.messenger.playerInfo(player, "Showing region");
 
-			}
+            }
 
-			else
+            else
 
-			if (args[0].equals("loc")) {
+            if (args[0].equals("loc")) {
 
-				showLocation(player, plugin);
-				plugin.messenger.playerInfo(player, "Showing location");
+                showLocation(player, plugin);
+                plugin.messenger.playerInfo(player, "Showing location");
 
-			}
+            }
 
-			else
+            else
 
-			if (args[0].equals("locs")) {
+            if (args[0].equals("locs")) {
 
-				showLocationList(player, plugin);
-				plugin.messenger.playerInfo(player, "Showing locations list");
+                showLocationList(player, plugin);
+                plugin.messenger.playerInfo(player, "Showing locations list");
 
-			}
+            }
 
-			else {
+            else {
 
-				return false;
+                return false;
 
-			}
+            }
 
-		}
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	private void showRegion(Player player, BitzPlugin plugin) {
+    private void showRegion(Player player, BitzPlugin plugin) {
 
-		PartialRegion partial = BitzData.getRegionSelection(player);
-		if (!partial.isComplete()) {
+        PartialRegion partial = BitzData.getRegionSelection(player);
+        if (!partial.isComplete()) {
 
-		return;
+            return;
 
-		}
-		
-		Region region = partial.toRegion();
+        }
 
-		BlockUtils.showGhostBlocks(RegionUtils.getFrame(region), player, Material.WOOL, (byte) 14, 10, plugin);
+        Region region = partial.toRegion();
 
-	}
+        BlockUtils.showGhostBlocks(RegionUtils.getFrame(region), player, Material.WOOL, (byte) 14, 10, plugin);
 
-	private void showLocation(Player player, BitzPlugin plugin) {
+    }
 
-		Location loc = BitzData.getLocationSelection(player);
-		if (loc == null) {
+    private void showLocation(Player player, BitzPlugin plugin) {
 
-		return;
+        Location loc = BitzData.getLocationSelection(player);
+        if (loc == null) {
 
-		}
+            return;
 
-		BlockUtils.showGhostBlock(loc.getBlock(), player, Material.WOOL, (byte) 11, 10, plugin);
+        }
 
-	}
+        BlockUtils.showGhostBlock(loc.getBlock(), player, Material.WOOL, (byte) 11, 10, plugin);
 
-	private void showLocationList(Player player, BitzPlugin plugin) {
+    }
 
-		List<Location> locs = BitzData.getLocationListSelection(player);
-		if (locs.size() < 1) {
+    private void showLocationList(Player player, BitzPlugin plugin) {
 
-		return;
+        List<Location> locs = BitzData.getLocationListSelection(player);
+        if (locs.size() < 1) {
 
-		}
+            return;
 
-		List<Block> blocks = new ArrayList<Block>();
+        }
 
-		for (Location loc : locs) {
+        List<Block> blocks = new ArrayList<Block>();
 
-			blocks.add(loc.getBlock());
+        for (Location loc : locs) {
 
-		}
+            blocks.add(loc.getBlock());
 
-		BlockUtils.showGhostBlocks(blocks, player, Material.WOOL, (byte) 5, 10, plugin);
+        }
 
-	}
+        BlockUtils.showGhostBlocks(blocks, player, Material.WOOL, (byte) 5, 10, plugin);
+
+    }
 
 }

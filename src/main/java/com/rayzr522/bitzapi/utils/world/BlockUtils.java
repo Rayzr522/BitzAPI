@@ -16,51 +16,51 @@ import com.rayzr522.bitzapi.BitzPlugin;
 
 public class BlockUtils {
 
-	public static void showGhostBlocks(final List<Block> blocks, final Player player, final Material ghostMat, final Byte metadata, int duration, final BitzPlugin plugin) {
+    public static void showGhostBlocks(final List<Block> blocks, final Player player, final Material ghostMat, final Byte metadata, int duration, final BitzPlugin plugin) {
 
-		final HashMap<Location, BlockState> oldStates = new HashMap<Location, BlockState>();
+        final HashMap<Location, BlockState> oldStates = new HashMap<Location, BlockState>();
 
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
-			@SuppressWarnings("deprecation")
-			public void run() {
+            @SuppressWarnings("deprecation")
+            public void run() {
 
-				for (Block b : blocks) {
+                for (Block b : blocks) {
 
-					oldStates.put(b.getLocation(), b.getState());
-					player.sendBlockChange(b.getLocation(), ghostMat, metadata);
+                    oldStates.put(b.getLocation(), b.getState());
+                    player.sendBlockChange(b.getLocation(), ghostMat, metadata);
 
-				}
+                }
 
-			}
+            }
 
-		}, 0L);
+        }, 0L);
 
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
-			@SuppressWarnings("deprecation")
-			public void run() {
+            @SuppressWarnings("deprecation")
+            public void run() {
 
-				for (Entry<Location, BlockState> entry : oldStates.entrySet()) {
+                for (Entry<Location, BlockState> entry : oldStates.entrySet()) {
 
-					player.sendBlockChange(entry.getKey(), entry.getValue().getType(), entry.getValue().getRawData());
+                    player.sendBlockChange(entry.getKey(), entry.getValue().getType(), entry.getValue().getRawData());
 
-				}
+                }
 
-			}
+            }
 
-		}, duration * 20);
+        }, duration * 20);
 
-	}
+    }
 
-	public static void showGhostBlock(Block block, Player player, Material ghostMat, Byte metadata, int duration, BitzPlugin plugin) {
+    public static void showGhostBlock(Block block, Player player, Material ghostMat, Byte metadata, int duration, BitzPlugin plugin) {
 
-		List<Block> blocks = new ArrayList<Block>();
+        List<Block> blocks = new ArrayList<Block>();
 
-		blocks.add(block);
+        blocks.add(block);
 
-		showGhostBlocks(blocks, player, ghostMat, metadata, duration, plugin);
+        showGhostBlocks(blocks, player, ghostMat, metadata, duration, plugin);
 
-	}
+    }
 
 }

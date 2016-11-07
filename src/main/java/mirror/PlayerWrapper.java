@@ -5,32 +5,32 @@ import org.bukkit.entity.Player;
 
 public class PlayerWrapper {
 
-	private ReflectedClass<Player> player;
+    private ReflectedClass<Player> player;
 
-	public PlayerWrapper(Player player) {
+    public PlayerWrapper(Player player) {
 
-		this.player = new ReflectedClass<Player>(player);
+        this.player = new ReflectedClass<Player>(player);
 
-	}
+    }
 
-	public void sendPacket(Object packet) {
+    public void sendPacket(Object packet) {
 
-		getHandle().sendPacket(packet);
+        getHandle().sendPacket(packet);
 
-	}
+    }
 
-	public void sendRaw(String message) {
+    public void sendRaw(String message) {
 
-		Object packet = new PacketBuilder("PlayOutChat").set("a", message.startsWith("{") ? Chat.fromJson(message) : Chat.componentText(message)).set("b", (byte) 1).create();
+        Object packet = new PacketBuilder("PlayOutChat").set("a", message.startsWith("{") ? Chat.fromJson(message) : Chat.componentText(message)).set("b", (byte) 1).create();
 
-		sendPacket(packet);
+        sendPacket(packet);
 
-	}
+    }
 
-	public HandleWrapper getHandle() {
+    public HandleWrapper getHandle() {
 
-		return new HandleWrapper(player.getMethod("getHandle").invoke());
+        return new HandleWrapper(player.getMethod("getHandle").invoke());
 
-	}
+    }
 
 }

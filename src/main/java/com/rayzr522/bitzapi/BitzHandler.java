@@ -6,16 +6,16 @@ import org.bukkit.event.Listener;
 
 public class BitzHandler<T extends BitzPlugin> implements Listener {
 
-	protected T plugin;
+    protected T plugin;
 
-	public BitzHandler(T plugin) {
+    public BitzHandler(T plugin) {
 
-		this.plugin = plugin;
+        this.plugin = plugin;
 
-	}
+    }
 
-	public void event(Event event) {
+    public void event(Event event) {
 
-	}
+    }
 
 }

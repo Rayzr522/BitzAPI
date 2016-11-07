@@ -48,329 +48,339 @@ import mirror.PlayerWrapper;
 
 public class BitzAPIHandler extends BitzHandler<BitzAPI> {
 
-	private Class<?>			packetWindowItems	= Reflection.getClass("{nms}.PacketPlayOutWindowItems");
-	private FieldAccessor<?>	itemsField			= Reflection.getField(packetWindowItems, Object[].class, 0);
+    private Class<?>            packetWindowItems = Reflection.getClass("{nms}.PacketPlayOutWindowItems");
+    private FieldAccessor<?>    itemsField        = Reflection.getField(packetWindowItems, Object[].class, 0);
 
-	private Class<?>			packetSetSlot		= Reflection.getClass("{nms}.PacketPlayOutSetSlot");
-	private FieldAccessor<?>	itemField			= Reflection.getField(packetSetSlot, Reflection.getClass("{nms}.ItemStack"), 0);
+    private Class<?>            packetSetSlot     = Reflection.getClass("{nms}.PacketPlayOutSetSlot");
+    private FieldAccessor<?>    itemField         = Reflection.getField(packetSetSlot, Reflection.getClass("{nms}.ItemStack"), 0);
 
-	private Class<?>			craftItemStack		= Reflection.getClass("{obc}.inventory.CraftItemStack");
-	private Class<?>			nmsItemStack		= Reflection.getClass("{nms}.ItemStack");
+    private Class<?>            craftItemStack    = Reflection.getClass("{obc}.inventory.CraftItemStack");
+    private Class<?>            nmsItemStack      = Reflection.getClass("{nms}.ItemStack");
 
-	private MethodInvoker		toNMS				= Reflection.getMethod(craftItemStack, "asNMSCopy", ItemStack.class);
-	private MethodInvoker		toBukkit			= Reflection.getMethod(craftItemStack, "asBukkitCopy", nmsItemStack);
+    private MethodInvoker       toNMS             = Reflection.getMethod(craftItemStack, "asNMSCopy", ItemStack.class);
+    private MethodInvoker       toBukkit          = Reflection.getMethod(craftItemStack, "asBukkitCopy", nmsItemStack);
 
-	private TinyProtocol		protocol;
+    private TinyProtocol        protocol;
 
-	private Map<UUID, GameMode>	realGM				= MapUtils.empty();
+    private Map<UUID, GameMode> realGM            = MapUtils.empty();
 
-	public BitzAPIHandler(BitzAPI plugin) {
-		super(plugin);
+    public BitzAPIHandler(BitzAPI plugin) {
+        super(plugin);
 
-		protocol = new TinyProtocol(plugin) {
+        protocol = new TinyProtocol(plugin) {
 
-			@Override
-			public Object onPacketOutAsync(Player reciever, Channel channel, Object packet) {
+            @Override
+            public Object onPacketOutAsync(Player reciever, Channel channel, Object packet) {
 
-				// Messing with the lore in creative == fails.
-				// When in creative, not only does the lore get removed from
-				// the
-				// data sent to the client, but ALSO from the server data.
-				// Weird, I know o.O
+                // Messing with the lore in creative == fails.
+                // When in creative, not only does the lore get removed from
+                // the
+                // data sent to the client, but ALSO from the server data.
+                // Weird, I know o.O
 
-				if (!(packetSetSlot.isInstance(packet) || packetWindowItems.isInstance(packet))) { return super.onPacketOutAsync(reciever, channel, packet); }
+                if (!(packetSetSlot.isInstance(packet) || packetWindowItems.isInstance(packet))) {
+                    return super.onPacketOutAsync(reciever, channel, packet);
+                }
 
-				if (reciever != null) {
+                if (reciever != null) {
 
-					if (realGM.get(reciever.getUniqueId()) == GameMode.CREATIVE) {
+                    if (realGM.get(reciever.getUniqueId()) == GameMode.CREATIVE) {
 
-					return super.onPacketOutAsync(reciever, channel, packet);
+                        return super.onPacketOutAsync(reciever, channel, packet);
 
-					}
-				}
+                    }
+                }
 
-				if (packetSetSlot.isInstance(packet)) {
+                if (packetSetSlot.isInstance(packet)) {
 
-					Object filtered = filterLore(itemField.get(packet));
+                    Object filtered = filterLore(itemField.get(packet));
 
-					itemField.set(packet, filtered);
+                    itemField.set(packet, filtered);
 
-				} else if (packetWindowItems.isInstance(packet)) {
+                } else if (packetWindowItems.isInstance(packet)) {
 
-					Object filtered = filterLore((Object[]) itemsField.get(packet));
+                    Object filtered = filterLore((Object[]) itemsField.get(packet));
 
-					itemsField.set(packet, filtered);
+                    itemsField.set(packet, filtered);
 
-				}
+                }
 
-				return super.onPacketOutAsync(reciever, channel, packet);
+                return super.onPacketOutAsync(reciever, channel, packet);
 
-			}
+            }
 
-		};
+        };
 
-	}
+    }
 
-	private Object filterLore(Object[] items) {
+    private Object filterLore(Object[] items) {
 
-		List<Object> output = ListUtils.empty();
+        List<Object> output = ListUtils.empty();
 
-		for (Object o : items) {
+        for (Object o : items) {
 
-			Object fixed = filterLore(o);
-			if (fixed != null) {
-				output.add(fixed);
-			} else {
-				output.add(o);
-			}
+            Object fixed = filterLore(o);
+            if (fixed != null) {
+                output.add(fixed);
+            } else {
+                output.add(o);
+            }
 
-		}
+        }
 
-		return output.toArray((Object[]) Array.newInstance(nmsItemStack, 0));
+        return output.toArray((Object[]) Array.newInstance(nmsItemStack, 0));
 
-	}
+    }
 
-	private Object filterLore(Object item) {
+    private Object filterLore(Object item) {
 
-		if (item == null) { return null; }
+        if (item == null) {
+            return null;
+        }
 
-		if (!nmsItemStack.isInstance(item)) {
-			System.err.println("Expected NMS ItemStack, but found '" + item.getClass().getCanonicalName() + "'");
-			return null;
-		}
+        if (!nmsItemStack.isInstance(item)) {
+            System.err.println("Expected NMS ItemStack, but found '" + item.getClass().getCanonicalName() + "'");
+            return null;
+        }
 
-		ItemStack is = (ItemStack) toBukkit.invoke(null, item);
-		LoreData.clearData(is);
+        ItemStack is = (ItemStack) toBukkit.invoke(null, item);
+        LoreData.clearData(is);
 
-		return toNMS.invoke(null, is);
+        return toNMS.invoke(null, is);
 
-	}
+    }
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerJoin(PlayerJoinEvent e) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerJoin(PlayerJoinEvent e) {
 
-		Player p = e.getPlayer();
+        Player p = e.getPlayer();
 
-		realGM.put(p.getUniqueId(), p.getGameMode());
+        realGM.put(p.getUniqueId(), p.getGameMode());
 
-		if (!protocol.hasInjected(p)) {
-			protocol.injectPlayer(p);
-		}
+        if (!protocol.hasInjected(p)) {
+            protocol.injectPlayer(p);
+        }
 
-	}
+    }
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onGamemodeChange(PlayerGameModeChangeEvent e) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onGamemodeChange(PlayerGameModeChangeEvent e) {
 
-		realGM.put(e.getPlayer().getUniqueId(), e.getNewGameMode());
+        realGM.put(e.getPlayer().getUniqueId(), e.getNewGameMode());
 
-		if (e.getNewGameMode() == GameMode.CREATIVE) {
+        if (e.getNewGameMode() == GameMode.CREATIVE) {
 
-			PlayerWrapper player = $(e.getPlayer());
+            PlayerWrapper player = $(e.getPlayer());
 
-			ItemStack[] items = e.getPlayer().getInventory().getContents();
+            ItemStack[] items = e.getPlayer().getInventory().getContents();
 
-			for (int i = 0; i < items.length; i++) {
+            for (int i = 0; i < items.length; i++) {
 
-				if (!LoreData.hasData(items[i])) {
-					continue;
-				}
+                if (!LoreData.hasData(items[i])) {
+                    continue;
+                }
 
-				Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", i).set("c", toNMS.invoke(null, items[i])).create();
+                Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", i).set("c", toNMS.invoke(null, items[i])).create();
 
-				player.sendPacket(packet);
+                player.sendPacket(packet);
 
-			}
+            }
 
-		} else if (e.getPlayer().getGameMode() == GameMode.CREATIVE && e.getNewGameMode() != GameMode.CREATIVE) {
+        } else if (e.getPlayer().getGameMode() == GameMode.CREATIVE && e.getNewGameMode() != GameMode.CREATIVE) {
 
-			PlayerWrapper player = $(e.getPlayer());
+            PlayerWrapper player = $(e.getPlayer());
 
-			ItemStack[] items = e.getPlayer().getInventory().getContents();
+            ItemStack[] items = e.getPlayer().getInventory().getContents();
 
-			for (int i = 0; i < items.length; i++) {
+            for (int i = 0; i < items.length; i++) {
 
-				if (!LoreData.hasData(items[i])) {
-					continue;
-				}
+                if (!LoreData.hasData(items[i])) {
+                    continue;
+                }
 
-				Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", i).set("c", toNMS.invoke(null, items[i])).create();
+                Object packet = new PacketBuilder("PlayOutSetSlot").set("a", -2).set("b", i).set("c", toNMS.invoke(null, items[i])).create();
 
-				player.sendPacket(packet);
+                player.sendPacket(packet);
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent e) {
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
 
-		Action action = e.getAction();
+        Action action = e.getAction();
 
-		if (!action.equals(Action.LEFT_CLICK_BLOCK) && !action.equals(Action.RIGHT_CLICK_BLOCK)) {
+        if (!action.equals(Action.LEFT_CLICK_BLOCK) && !action.equals(Action.RIGHT_CLICK_BLOCK)) {
 
-		return;
+            return;
 
-		}
+        }
 
-		if (!BitzTools.isTool(e.getItem())) {
+        if (!BitzTools.isTool(e.getItem())) {
 
-		return;
+            return;
 
-		}
-		boolean left = action == Action.LEFT_CLICK_BLOCK;
+        }
+        boolean left = action == Action.LEFT_CLICK_BLOCK;
 
-		Player player = e.getPlayer();
-		UUID id = player.getUniqueId();
-		ToolType toolType = BitzTools.getToolType(e.getItem());
-		Location location = e.getClickedBlock().getLocation();
+        Player player = e.getPlayer();
+        UUID id = player.getUniqueId();
+        ToolType toolType = BitzTools.getToolType(e.getItem());
+        Location location = e.getClickedBlock().getLocation();
 
-		if (toolType == null) { return; }
+        if (toolType == null) {
+            return;
+        }
 
-		e.setCancelled(true);
+        e.setCancelled(true);
 
-		if (toolType.getPluginName().equals(BitzAPI.instance.getName())) {
+        if (toolType.getPluginName().equals(BitzAPI.instance.getName())) {
 
-			if (toolType.getName().equals(ToolType.REGION_TOOL_NAME)) {
+            if (toolType.getName().equals(ToolType.REGION_TOOL_NAME)) {
 
-				PartialRegion partial = BitzData.getRegionSelection(id);
+                PartialRegion partial = BitzData.getRegionSelection(id);
 
-				if (left) {
+                if (left) {
 
-					partial.setP1(location);
-					plugin.messenger.playerInfo(player, "Region point 1 set");
+                    partial.setP1(location);
+                    plugin.messenger.playerInfo(player, "Region point 1 set");
 
-				} else {
+                } else {
 
-					partial.setP2(location);
-					plugin.messenger.playerInfo(player, "Region point 2 set");
+                    partial.setP2(location);
+                    plugin.messenger.playerInfo(player, "Region point 2 set");
 
-				}
+                }
 
-				BitzData.setRegionSelection(id, partial);
+                BitzData.setRegionSelection(id, partial);
 
-			}
+            }
 
-			else if (toolType.getName().equals(ToolType.LOCATION_TOOL_NAME)) {
+            else if (toolType.getName().equals(ToolType.LOCATION_TOOL_NAME)) {
 
-				if (left) {
+                if (left) {
 
-					BitzData.setLocationSelection(id, location);
-					plugin.messenger.playerInfo(player, "Location selected");
+                    BitzData.setLocationSelection(id, location);
+                    plugin.messenger.playerInfo(player, "Location selected");
 
-				}
+                }
 
-			}
+            }
 
-			else if (toolType.getName().equals(ToolType.LOCATION_LIST_TOOL)) {
+            else if (toolType.getName().equals(ToolType.LOCATION_LIST_TOOL)) {
 
-				List<Location> locations = BitzData.getLocationListSelection(id);
-				String locationFormatted = LocUtils.toString(location);
+                List<Location> locations = BitzData.getLocationListSelection(id);
+                String locationFormatted = LocUtils.toString(location);
 
-				if (left) {
+                if (left) {
 
-					if (!locations.contains(location)) {
-						locations.add(location);
-						plugin.messenger.playerInfo(player, "Location at " + locationFormatted + " added");
-					} else {
-						plugin.messenger.playerWarning(player, "Location at " + locationFormatted + " is already listed");
-					}
+                    if (!locations.contains(location)) {
+                        locations.add(location);
+                        plugin.messenger.playerInfo(player, "Location at " + locationFormatted + " added");
+                    } else {
+                        plugin.messenger.playerWarning(player, "Location at " + locationFormatted + " is already listed");
+                    }
 
-				} else {
+                } else {
 
-					if (locations.remove(location)) {
+                    if (locations.remove(location)) {
 
-						plugin.messenger.playerInfo(player, "Location at " + locationFormatted + " removed");
+                        plugin.messenger.playerInfo(player, "Location at " + locationFormatted + " removed");
 
-					} else {
+                    } else {
 
-						plugin.messenger.playerWarning(player, "Location at " + locationFormatted + " isn't listed");
+                        plugin.messenger.playerWarning(player, "Location at " + locationFormatted + " isn't listed");
 
-					}
+                    }
 
-				}
+                }
 
-				BitzData.setLocationListSelection(id, locations);
+                BitzData.setLocationListSelection(id, locations);
 
-			}
+            }
 
-		} else {
-			// TODO: Send the event to a list of registered tools-handlers
-		}
+        } else {
+            // TODO: Send the event to a list of registered tools-handlers
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onCraftItem(CraftItemEvent e) {
+    @EventHandler
+    public void onCraftItem(CraftItemEvent e) {
 
-		for (ItemStack item : e.getInventory().getContents()) {
+        for (ItemStack item : e.getInventory().getContents()) {
 
-			if (BitzTools.isTool(item)) {
+            if (BitzTools.isTool(item)) {
 
-				e.setCancelled(true);
-				return;
+                e.setCancelled(true);
+                return;
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onFurnaceSmelt(FurnaceSmeltEvent e) {
+    @EventHandler
+    public void onFurnaceSmelt(FurnaceSmeltEvent e) {
 
-		if (BitzTools.isTool(e.getSource())) {
+        if (BitzTools.isTool(e.getSource())) {
 
-			e.setCancelled(true);
+            e.setCancelled(true);
 
-		}
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onFurnaceFuel(FurnaceBurnEvent e) {
+    @EventHandler
+    public void onFurnaceFuel(FurnaceBurnEvent e) {
 
-		if (BitzTools.isTool(e.getFuel())) {
+        if (BitzTools.isTool(e.getFuel())) {
 
-			e.setCancelled(true);
+            e.setCancelled(true);
 
-		}
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onInventoryClick(InventoryClickEvent e) {
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
 
-		if (!MenuManager.isMenu(e.getInventory())) { return; }
+        if (!MenuManager.isMenu(e.getInventory())) {
+            return;
+        }
 
-		if (!BitzCommandCreateInv.isCreationInv(e.getInventory())) {
-			e.setCancelled(true);
-			// TODO: Fire off this event to all registered children
-		}
+        if (!BitzCommandCreateInv.isCreationInv(e.getInventory())) {
+            e.setCancelled(true);
+            // TODO: Fire off this event to all registered children
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onInventoryClose(InventoryCloseEvent e) {
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent e) {
 
-		if (!MenuManager.isMenu(e.getInventory())) { return; }
+        if (!MenuManager.isMenu(e.getInventory())) {
+            return;
+        }
 
-		if (BitzCommandCreateInv.isCreationInv(e.getInventory())) {
+        if (BitzCommandCreateInv.isCreationInv(e.getInventory())) {
 
-			Inventory inventory = BitzCommandCreateInv.removeCreationInv(e.getInventory());
+            Inventory inventory = BitzCommandCreateInv.removeCreationInv(e.getInventory());
 
-			if (inventory != null) {
+            if (inventory != null) {
 
-				ConfigurationSection base = plugin.configUtils.getSection("createdInvs");
-				MenuManager.createConfigSection(inventory, base, plugin);
-				plugin.configUtils.saveConfig();
+                ConfigurationSection base = plugin.configUtils.getSection("createdInvs");
+                MenuManager.createConfigSection(inventory, base, plugin);
+                plugin.configUtils.saveConfig();
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
 }

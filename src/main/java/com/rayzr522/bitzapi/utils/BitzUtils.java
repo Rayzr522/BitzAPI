@@ -4,11 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 public class BitzUtils {
-	
-	public static Plugin getPlugin(String name) {
-		
-		return Bukkit.getPluginManager().getPlugin(name);
-		
-	}
+
+    public static Plugin getPlugin(String name) {
+
+        return Bukkit.getPluginManager().getPlugin(name);
+
+    }
 
 }

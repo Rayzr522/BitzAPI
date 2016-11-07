@@ -10,10 +10,10 @@ package mirror;
  * @author Jadon "Phase" Fowler on Feb 16, 2015
  */
 public interface Printable<T> {
-	
-	/**
-	 * Prints object.
-	 */
-	public T print();
-	
+
+    /**
+     * Prints object.
+     */
+    public T print();
+
 }

@@ -17,42 +17,42 @@ import com.rayzr522.bitzapi.utils.item.ItemUtils;
 @CommandInfo(name = "type", usage = "/{command} item type <type>", desc = "Change the type of an item", pattern = "type", perm = "{base}.item.type")
 public class BitzCommandItemType implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) {
+        if (!CommandUtils.isPlayer(sender)) {
 
-			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
-			return true;
+            plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
+            return true;
 
-		}
+        }
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		if (args.length < 1) {
+        if (args.length < 1) {
 
-		return plugin.messenger.playerMessage(player, BitzMessages.NO_ARG.msg, "type");
+            return plugin.messenger.playerMessage(player, BitzMessages.NO_ARG.msg, "type");
 
-		}
+        }
 
-		String matString = ArrayUtils.concatArray(args, " ");
-		Material mat = ItemUtils.getType(matString);
+        String matString = ArrayUtils.concatArray(args, " ");
+        Material mat = ItemUtils.getType(matString);
 
-		if (mat == null) {
+        if (mat == null) {
 
-		return plugin.messenger.playerMessage(player, BitzMessages.NO_SUCH_MATERIAL.msg, matString);
+            return plugin.messenger.playerMessage(player, BitzMessages.NO_SUCH_MATERIAL.msg, matString);
 
-		}
+        }
 
-		if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
+        if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
 
-		return plugin.messenger.playerMessage(player, BitzMessages.NOT_HOLDING_ITEM.msg);
+            return plugin.messenger.playerMessage(player, BitzMessages.NOT_HOLDING_ITEM.msg);
 
-		}
+        }
 
-		ItemStack item = player.getInventory().getItemInMainHand();
-		item.setType(mat);
+        ItemStack item = player.getInventory().getItemInMainHand();
+        item.setType(mat);
 
-		return true;
-	}
+        return true;
+    }
 
 }

@@ -6,10 +6,10 @@ import org.bukkit.entity.Player;
 
 public class CommandUtils {
 
-	public static boolean isPlayer(CommandSender sender) {
+    public static boolean isPlayer(CommandSender sender) {
 
-		return (sender instanceof Player);
+        return (sender instanceof Player);
 
-	}
+    }
 
 }

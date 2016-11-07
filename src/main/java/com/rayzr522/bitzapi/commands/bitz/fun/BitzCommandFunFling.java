@@ -13,28 +13,28 @@ import com.rayzr522.bitzapi.utils.CommandUtils;
 @CommandInfo(name = "fling", usage = "/{command} fun fling [power]", desc = "Flings you in the direction you're looking!", pattern = "whe(e(e)?)?|fling", perm = "{base}.fun")
 public class BitzCommandFunFling implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
-		
-		if (!CommandUtils.isPlayer(sender)) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
-			return true;
+        if (!CommandUtils.isPlayer(sender)) {
 
-		}
+            plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
+            return true;
 
-		int multiplier = 2;
+        }
 
-		try {
-			multiplier = Integer.parseInt(args[0]);
-		} catch (Exception e) {
+        int multiplier = 2;
 
-		}
+        try {
+            multiplier = Integer.parseInt(args[0]);
+        } catch (Exception e) {
 
-		Player player = (Player) sender;
+        }
 
-		player.setVelocity(player.getVelocity().multiply(multiplier));
+        Player player = (Player) sender;
 
-		return true;
-	}
+        player.setVelocity(player.getVelocity().multiply(multiplier));
+
+        return true;
+    }
 
 }

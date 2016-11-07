@@ -12,12 +12,12 @@ import org.bukkit.entity.Player;
  */
 public class Mirror {
 
-	public static <T> ReflectedClass<T> $(T o) {
-		return new ReflectedClass<T>(o);
-	}
+    public static <T> ReflectedClass<T> $(T o) {
+        return new ReflectedClass<T>(o);
+    }
 
-	public static PlayerWrapper $(Player p) {
-		return new PlayerWrapper(p);
-	}
+    public static PlayerWrapper $(Player p) {
+        return new PlayerWrapper(p);
+    }
 
 }

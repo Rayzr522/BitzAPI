@@ -30,40 +30,40 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CommandInfo {
 
-	/**
-	 * The name of the command. Purely descriptive.
-	 * 
-	 * @return
-	 */
-	public abstract String name();
+    /**
+     * The name of the command. Purely descriptive.
+     * 
+     * @return
+     */
+    public abstract String name();
 
-	/**
-	 * The usage of this command. This is what is shown to the player.
-	 * 
-	 * @return
-	 */
-	public abstract String usage();
+    /**
+     * The usage of this command. This is what is shown to the player.
+     * 
+     * @return
+     */
+    public abstract String usage();
 
-	/**
-	 * The description of the command. Also shown to the player.
-	 * 
-	 * @return
-	 */
-	public abstract String desc();
+    /**
+     * The description of the command. Also shown to the player.
+     * 
+     * @return
+     */
+    public abstract String desc();
 
-	/**
-	 * The regex pattern (or just a plain string) that is used to match this
-	 * command.
-	 * 
-	 * @return
-	 */
-	public abstract String pattern();
+    /**
+     * The regex pattern (or just a plain string) that is used to match this
+     * command.
+     * 
+     * @return
+     */
+    public abstract String pattern();
 
-	/**
-	 * What permission is required to use this.
-	 * 
-	 * @return
-	 */
-	public abstract String perm();
+    /**
+     * What permission is required to use this.
+     * 
+     * @return
+     */
+    public abstract String perm();
 
 }

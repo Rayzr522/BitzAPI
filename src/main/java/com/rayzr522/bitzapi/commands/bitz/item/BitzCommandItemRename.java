@@ -17,36 +17,36 @@ import com.rayzr522.bitzapi.utils.item.ItemUtils;
 @CommandInfo(name = "rename", usage = "/{command} item rename <name>", desc = "Rename an item", pattern = "rename|name", perm = "{base}.item.rename")
 public class BitzCommandItemRename implements BitzCommand {
 
-	public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
+    public boolean execute(CommandSender sender, String[] args, BitzPlugin plugin) {
 
-		if (!CommandUtils.isPlayer(sender)) {
+        if (!CommandUtils.isPlayer(sender)) {
 
-			plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
-			return true;
+            plugin.messenger.playerMessage(sender, BitzMessages.ONLY_PLAYERS.msg);
+            return true;
 
-		}
+        }
 
-		Player player = (Player) sender;
+        Player player = (Player) sender;
 
-		if (args.length < 1) {
+        if (args.length < 1) {
 
-		return plugin.messenger.playerMessage(player, BitzMessages.NO_ARG.msg, "name");
+            return plugin.messenger.playerMessage(player, BitzMessages.NO_ARG.msg, "name");
 
-		}
+        }
 
-		if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
+        if (ItemUtils.isEmpty(player.getInventory().getItemInMainHand())) {
 
-		return plugin.messenger.playerMessage(player, BitzMessages.NOT_HOLDING_ITEM.msg);
+            return plugin.messenger.playerMessage(player, BitzMessages.NOT_HOLDING_ITEM.msg);
 
-		}
+        }
 
-		ItemStack item = player.getInventory().getItemInMainHand();
+        ItemStack item = player.getInventory().getItemInMainHand();
 
-		String name = TextUtils.colorize("&0&f&0&f" + ArrayUtils.concatArray(args, " "));
+        String name = TextUtils.colorize("&0&f&0&f" + ArrayUtils.concatArray(args, " "));
 
-		ItemUtils.setName(item, name);
+        ItemUtils.setName(item, name);
 
-		return true;
-	}
+        return true;
+    }
 
 }
